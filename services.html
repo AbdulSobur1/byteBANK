@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Services | byteBANK</title>
+  <link rel="stylesheet" href="services.css" />
+</head>
+<body>
+  <header>
+    <h1>byteBANK</h1>
+    <nav>
+        <a href="homepage.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="services.html">Services</a>
+        <a href="transactions.html">Transactions</a>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+  </header>
+
+  <main>
+    <section class="services-intro">
+      <h2>Explore Our Comprehensive Banking Services</h2>
+      <p>
+        At byteBank, we offer a wide range of services to meet your financial needs — whether it’s saving for the future, managing daily expenses, or growing your wealth.
+      </p>
+    </section>
+
+    <section class="services-categories">
+      <div class="category" id="personal-banking">
+        <h3>Personal Banking</h3>
+        <p>Customized accounts and loans to fit your lifestyle.</p>
+        <ul>
+          <li>Checking Accounts</li>
+          <li>Savings Accounts</li>
+          <li>Personal Loans</li>
+          <li>Credit Cards</li>
+          <li>Mobile & Online Banking</li>
+        </ul>
+      </div>
+
+      <div class="category" id="business-banking">
+        <h3>Business Banking</h3>
+        <p>Tools and services to help your business grow.</p>
+        <ul>
+          <li>Business Checking & Savings</li>
+          <li>Merchant Services</li>
+          <li>Business Loans & Lines of Credit</li>
+          <li>Payroll Services</li>
+          <li>Corporate Credit Cards</li>
+        </ul>
+      </div>
+
+      <div class="category" id="investment-services">
+        <h3>Investment Services</h3>
+        <p>Grow your wealth with our expert financial advisors.</p>
+        <ul>
+          <li>Retirement Accounts (IRA, 401k)</li>
+          <li>Mutual Funds & ETFs</li>
+          <li>Brokerage Accounts</li>
+          <li>Financial Planning</li>
+          <li>Estate Planning</li>
+        </ul>
+      </div>
+
+      <div class="category" id="insurance-services">
+        <h3>Insurance Services</h3>
+        <p>Protect what matters most with tailored insurance options.</p>
+        <ul>
+          <li>Life Insurance</li>
+          <li>Health Insurance</li>
+          <li>Auto Insurance</li>
+          <li>Homeowners Insurance</li>
+          <li>Business Insurance</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="service-details">
+      <h2>Service Details</h2>
+
+      <div class="service-card">
+        <h3>Checking Accounts</h3>
+        <p>Flexible accounts with no monthly fees, free online bill pay, and debit card access.</p>
+        <button class="toggle-details">Learn More</button>
+        <div class="details-content hidden">
+          <p>
+            Our checking accounts are designed to fit your everyday banking needs with features like direct deposit, overdraft protection, and mobile check deposit.
+          </p>
+          <ul>
+            <li>No minimum balance</li>
+            <li>Free ATM withdrawals nationwide</li>
+            <li>24/7 customer support</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <h3>Business Loans</h3>
+        <p>Flexible financing solutions to help your business expand.</p>
+        <button class="toggle-details">Learn More</button>
+        <div class="details-content hidden">
+          <p>
+            Whether you’re starting a new venture or expanding, our business loans offer competitive rates and tailored repayment plans.
+          </p>
+          <ul>
+            <li>Fast application process</li>
+            <li>Personalized loan advisors</li>
+            <li>Flexible terms and conditions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <h3>Retirement Accounts</h3>
+        <p>Plan ahead with IRA and 401(k) options designed for your future.</p>
+        <button class="toggle-details">Learn More</button>
+        <div class="details-content hidden">
+          <p>
+            Secure your retirement with our diverse range of investment products, including traditional and Roth IRAs, and employer-sponsored 401(k) plans.
+          </p>
+          <ul>
+            <li>Tax-advantaged growth</li>
+            <li>Professional portfolio management</li>
+            <li>Regular account reviews</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <h2>Ready to Get Started?</h2>
+      <p>Contact our expert team or apply online to take the next step toward your financial goals.</p>
+      <a href="contact.html" class="btn-primary">Contact Us</a>
+      <button class="btn-primary" id="apply-now-btn">Apply Now</button>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="privacypolicy.html">Privacy Policy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p>&copy; 2025 byteBANK. All rights reserved.</p>
+  </footer>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <div class="modal-content">
+      <h2 id="modalTitle">Apply for a Service</h2>
+      <p id="modalDesc">Please call our customer service at ###### or visit the nearest branch to apply.</p>
+      <button id="close-modal" aria-label="Close modal">Close</button>
+    </div>
+  </div>
+
+  <script src="services.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

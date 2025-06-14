@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | byteBANK</title>
+  <link rel="stylesheet" href="contact.css" />
+</head>
+<body>
+  <header>
+    <h1>byteBANK</h1>
+    <nav>
+      <a href="homepage.html".html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="contact-intro">
+      <h2>Get in Touch with byteBANK</h2>
+      <p>We’re here to assist you with any inquiries, concerns, or feedback.</p>
+    </section>
+
+    <section class="contact-wrapper">
+      <!-- Contact Form -->
+      <form id="contact-form">
+        <h3>Send Us a Message</h3>
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject *</label>
+          <input type="text" id="subject" name="subject" required />
+        </div>
+
+        <div class="form-group">
+          <label for="inquiry">Type of Inquiry *</label>
+          <select id="inquiry" name="inquiry" required>
+            <option value="">-- Select One --</option>
+            <option value="general">General Inquiry</option>
+            <option value="technical">Technical Support</option>
+            <option value="security">Security Concern</option>
+            <option value="feedback">Feedback</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Your Message *</label>
+          <textarea id="message" name="message" rows="6" maxlength="500" required></textarea>
+          <div class="char-count"><span id="charCount">0</span>/500</div>
+        </div>
+
+        <button type="submit" class="submit" disabled>Submit</button>
+      </form>
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <h3>Our Contact Info</h3>
+        <p><strong>Email:</strong> support@bytebank.com</p>
+        <p><strong>Phone:</strong> +234 800 123 4567</p>
+        <p><strong>Head Office:</strong><br />123 Byte Street, Victoria Island, Lagos, Nigeria</p>
+
+        <div class="map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.7093562220544!2d3.423345974869418!3d6.428055593529792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf44a36d2d3a7%3A0x26e5c1d88cba028a!2sVictoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1718222222222"
+            width="100%" height="250" style="border:0; border-radius: 10px;"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 byteBANK. All rights reserved.</p>
+  </footer>
+
+  <!-- Toast Message -->
+  <div id="toast" class="toast">
+    <span>✅ Your message has been sent successfully!</span>
+  </div>
+
+  <script src="contact.js"></script>
+</body>
+</html>

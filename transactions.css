@@ -1,0 +1,221 @@
+:root {
+    --bg: #f4f6f8;
+    --text: #333;
+    --primary: #003366;
+    --accent: #0077cc;
+    --white: #ffffff;
+    --dark-bg: #121212;
+    --dark-text: #eee;
+    --table-header-bg: #00509e;
+    --table-row-hover: #e1ecf9;
+    --dark-table-header-bg: #003055;
+    --dark-table-row-hover: #2a2a2a;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  body.dark {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+  }
+  
+  header, footer {
+    background: var(--primary);
+    color: var(--white);
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+  }
+  
+  nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  #theme-toggle {
+    background: var(--accent);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  #theme-toggle:hover {
+    background: #005fa3;
+  }
+  
+  main {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .transactions-section h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filters label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+  
+  body.dark .filters label {
+    color: var(--dark-text);
+  }
+  
+  .filters input[type="text"],
+  .filters input[type="date"],
+  .filters select {
+    padding: 0.4rem 0.6rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 0.3rem;
+    transition: border-color 0.3s;
+  }
+  
+  .filters input[type="text"]:focus,
+  .filters input[type="date"]:focus,
+  .filters select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  
+  body.dark .filters input[type="text"],
+  body.dark .filters input[type="date"],
+  body.dark .filters select {
+    background: #1e1e1e;
+    border-color: #444;
+    color: var(--dark-text);
+  }
+  
+  body.dark .filters input[type="text"]:focus,
+  body.dark .filters input[type="date"]:focus,
+  body.dark .filters select:focus {
+    border-color: var(--accent);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  
+  thead {
+    background: var(--table-header-bg);
+    color: var(--white);
+  }
+  
+  body.dark thead {
+    background: var(--dark-table-header-bg);
+  }
+  
+  th, td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  body.dark th, body.dark td {
+    border-color: #333;
+  }
+  
+  tbody tr:hover {
+    background: var(--table-row-hover);
+  }
+  
+  body.dark tbody tr:hover {
+    background: var(--dark-table-row-hover);
+  }
+  
+  @media (max-width: 600px) {
+    .filters {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .filters label {
+      width: 100%;
+    }
+  
+    th, td {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  }
+  footer {
+    background: var(--primary);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem 2rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+  }
+  
+  .footer-links {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-links a {
+    color: var(--white);
+    margin: 0 0.75rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+  
+  .footer-links a:hover,
+  .footer-links a:focus {
+    color: var(--accent);
+  }
+  
+  @media (max-width: 600px) {
+    footer {
+      font-size: 0.85rem;
+      padding: 1rem;
+    }
+  
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+  
+    .footer-links a {
+      margin: 0;
+    }
+  }
+  

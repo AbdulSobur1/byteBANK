@@ -1,0 +1,239 @@
+/* =============================
+   COMBINED CSS: contact.css + toast + form layout
+   ============================= */
+
+:root {
+  --primary-color: #0d6efd;
+  --accent-color: #4ea8ff;
+  --background-dark: #10151c;
+  --card-dark: #1c1f26;
+  --section-dark: #161b22;
+  --text-light: #f5f7fa;
+  --border-radius: 10px;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --transition-speed: 0.3s;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--background-dark);
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+/* Header */
+header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav a:hover,
+nav a:focus,
+nav a[aria-current="page"] {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+/* Intro Section */
+.contact-intro {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+.contact-intro h2 {
+  font-size: 2.2rem;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+.contact-intro p {
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+/* Layout */
+.contact-wrapper {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem 1.5rem;
+  max-width: 1100px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+form,
+.contact-info {
+  background-color: var(--card-dark);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  flex: 1 1 480px;
+  transition: box-shadow var(--transition-speed);
+}
+
+form:hover,
+.contact-info:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+form h3,
+.contact-info h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+input,
+select,
+textarea {
+  background-color: #2a2f38;
+  color: var(--text-light);
+  border: 1px solid #444;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  resize: vertical;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(78, 168, 255, 0.3);
+  outline: none;
+}
+
+textarea {
+  min-height: 120px;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  color: #aaa;
+}
+
+button.submit {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  cursor: not-allowed;
+  opacity: 0.6;
+  transition: background-color 0.3s ease, opacity 0.3s ease, cursor 0.3s ease;
+  width: 100%;
+}
+
+button.submit:enabled {
+  cursor: pointer;
+  opacity: 1;
+}
+
+button.submit:hover:enabled {
+  background-color: #0b5ed7;
+}
+
+.contact-info p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.map-wrapper {
+  margin-top: 1.5rem;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: #1c1f26;
+  color: #f5f7fa;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: none;
+  opacity: 0;
+  z-index: 9999;
+  transition: opacity 0.4s ease, transform 0.3s ease;
+  transform: translateY(20px);
+}
+
+.toast.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column;
+  }
+
+  form,
+  .contact-info {
+    padding: 1.5rem;
+  }
+
+  .toast {
+    right: 1rem;
+    left: 1rem;
+  }
+}
