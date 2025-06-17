@@ -37,7 +37,7 @@ img {
 .container {
   background-color: var(--card-dark);
   color: var(--text-light);
-  width: 50%;
+  width: 90%;
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
