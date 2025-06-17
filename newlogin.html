@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login | byteBANK</title>
 
-  <!-- ===============================
-       Internal Styles – Glassmorphic Dark UI
-  ================================= -->
   <style>
     :root {
       --primary: #0d6efd;
@@ -33,14 +30,12 @@
       align-items: center;
     }
 
-    /* translucent overlay */
     .overlay {
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.55);
     }
 
-    /* Login card */
     .login-card {
       position: relative;
       backdrop-filter: blur(var(--blur));
@@ -91,7 +86,6 @@
       box-shadow: 0 0 6px rgba(78, 168, 255, 0.5);
     }
 
-    /* password toggle */
     .toggle-pass {
       position: absolute;
       top: 50%;
@@ -124,15 +118,46 @@
       text-align: center;
       margin-top: 1rem;
       font-size: 0.95rem;
+      color: #ccc;
     }
 
-    /* animation */
+    .redirect {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .redirect a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .redirect a:hover {
+      text-decoration: underline;
+    }
+
+    .forgot {
+      text-align: right;
+      font-size: 0.9rem;
+      margin-top: -1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .forgot a {
+      color: #aaa;
+      text-decoration: none;
+    }
+
+    .forgot a:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* mobile adjustments */
     @media (max-width: 500px) {
       .login-card { padding: 2rem 1.5rem; }
     }
@@ -155,28 +180,31 @@
       <span class="toggle-pass" id="togglePass">👁️</span>
     </div>
 
+    <div class="forgot">
+      <a href="forgot-password.html">Forgot Password?</a>
+    </div>
+
     <button type="submit">Login</button>
 
     <p class="message" id="form-msg"></p>
+
+    <p class="redirect">
+      Don't have an account? <a href="register.html">Create one here</a>
+    </p>
   </form>
 
-  <!-- =========================================
-       Internal Script – API call + interactions
-  ========================================== -->
   <script>
     const form = document.getElementById('login-form');
     const togglePass = document.getElementById('togglePass');
     const passwordInput = document.getElementById('password');
     const msg = document.getElementById('form-msg');
 
-    // Toggle password visibility
     togglePass.addEventListener('click', () => {
       const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
       passwordInput.setAttribute('type', type);
       togglePass.textContent = type === 'password' ? '👁️' : '🙈';
     });
 
-    // Login submission
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       msg.textContent = '';
