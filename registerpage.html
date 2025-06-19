@@ -1,152 +1,142 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="registerpage.css">
-    <title>REGISTER PAGE</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | byteBANK</title>
+  <style>
+    :root {
+      --bg-grad: linear-gradient(130deg, #0f172a 0%, #1e293b 100%);
+      --card-bg: rgba(28,31,40,.65);
+      --border: rgba(255,255,255,.1);
+      --primary: #0ea5e9;
+      --accent:  #38bdf8;
+      --text:    #f1f5f9;
+      --radius:  12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;}
+    body{
+      min-height:100vh;display:flex;justify-content:center;align-items:center;color:var(--text);background:var(--bg-grad);
+    }
+    form.card{
+      width:100%;max-width:530px;padding:2rem 2.2rem;border-radius:var(--radius);
+      background:var(--card-bg);backdrop-filter:blur(14px);
+      border:1px solid var(--border);box-shadow:0 8px 25px rgba(0,0,0,.55);
+    }
+    h2{color:var(--accent);text-align:center;margin-bottom:1.6rem;font-size:1.9rem;}
+    label{display:block;margin-bottom:.35rem;font-weight:600;font-size:.95rem;}
+    .row{margin-bottom:1rem;}
+    input,select{
+      width:100%;padding:.75rem 1rem;border-radius:var(--radius);border:1px solid var(--border);
+      background:#1e293b;color:var(--text);font-size:.95rem;
+    }
+    input:focus,select:focus{outline:none;border-color:var(--accent);}
+    .inline{display:flex;gap:.75rem;}
+    .inline label{font-weight:400;margin:0;display:flex;align-items:center;gap:.25rem;}
+    button{
+      width:100%;padding:.9rem;margin-top:.8rem;border:none;border-radius:var(--radius);
+      background:var(--primary);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;
+    }
+    button:hover{background:#0284c7;}
+    .msg{text-align:center;margin-top:.9rem;font-size:.9rem;}
+    .redirect{text-align:center;margin-top:1.2rem;font-size:.9rem;}
+    .redirect a{color:var(--accent);text-decoration:none;}
+    .redirect a:hover{text-decoration:underline;}
+  </style>
 </head>
 <body>
-  <center><img src="bytebank.png"></center>
-    <h1 class="headerr"><strong><center>REGISTER</center></strong></h1><br>
-    <div class="container">
-      <form>
-        <label for="usersurname">SURNAME:</label>
-        <input type="text" name="surname" placeholder="Enter your surname" id="usersurname" maxlength="16" required><hr>
-        <label for="usermiddlename">MIDDLENAME:</label>
-        <input type="text" name="middlename" placeholder="Enter your middlename" id="usermiddlename" maxlength="14" required><hr>
-        <label for="password">PASSWORD:</label>
-        <input type="password" name="userpassword" id="password" placeholder="Enter your password" maxlength="16" required>````
-        <hr>
-        <label for="userdob">DATE OF BIRTH:</label>
-        <input type="date" name="calender"><hr><hr>
-    
-        <p class="gender">SELECT YOUR GENDER</p>
-        <div class="form-group">
-            <label>
-              <input type="radio" name="gender" value="male" required /> Male
-            </label>
-            <label>
-              <input type="radio" name="gender" value="female" required /> Female
-            </label>
-          </div>
-        </div><hr>
-    
-       <br><p>SELECT NATIONALITY</p>
-       <form action="/submit" method="post">
-       <label for="nationality">Nationality:</label>
-       <select id="nationality" name="nationality" required>
-        <option value="">--Select your nationality--</option>
-        <option value="nigeria">Nigeria</option>
-        <option value="united_states">United States</option>
-        <option value="canada">Canada</option>
-        <option value="united_kingdom">United Kingdom</option>
-        <option value="germany">Germany</option>
-        <option value="india">India</option>
-        <option value="china">China</option>
-        <option value="south_africa">South Africa</option>
-        <option value="brazil">Brazil</option>
-        <option value="france">France</option>
-       </select><hr>
-     </form>
-  <br>
-    <form action="/submit" method="post">
-    <label for="phone">Phone Number:</label>
-    <select id="countryCode" name="countryCode" required>
-      <option value="">--Country Code--</option>
-      <option value="+234">🇳🇬 Nigeria (+234)</option>
-      <option value="+1">🇺🇸 United States (+1)</option>
-      <option value="+44">🇬🇧 United Kingdom (+44)</option>
-      <option value="+49">🇩🇪 Germany (+49)</option>
-      <option value="+91">🇮🇳 India (+91)</option>
-      <option value="+86">🇨🇳 China (+86)</option>
-      <option value="+27">🇿🇦 South Africa (+27)</option>
-      <option value="+55">🇧🇷 Brazil (+55)</option>
-      <option value="+33">🇫🇷 France (+33)</option>
-      <option value="+61">🇦🇺 Australia (+61)</option>
-    </select>
-    <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
-    <hr>
-    <form><center>
-      <div class="bvnandninbutton">
-      <script src="ninandbvn.js"></script>
-      <button class="option-button" onclick="showField('nin')">NIN</button>
-      <button class="option-button" onclick="showField('bvn')">BVN</button>
-      </div></center>
-    </form><br>
+  <form id="register-form" class="card">
+    <h2>Create your <span style="color:var(--primary)">byteBANK</span> account</h2><!-- 1. Name section -->
+<div class="row"><label for="surname">Surname</label><input id="surname" required></div>
+<div class="row"><label for="middlename">Middle Name</label><input id="middlename" required></div>
 
-  <center>
-  <div id="nin-field" class="input-field" style="display: none;">
-    <label for="nin-input">Enter your NIN:</label>
-    <input type="text" id="nin-input" placeholder="Your NIN">
-  </div>
-  </center>
+<!-- 2. Contact & security -->
+<div class="row"><label for="email">Email</label><input type="email" id="email" required></div>
+<div class="row"><label for="password">Password</label><input type="password" id="password" required></div>
 
-  <center>
-  <div id="bvn-field" class="input-field1" style="display: none;">
-    <label for="bvn-input">Enter your BVN:</label>
-    <input type="text" id="bvn-input" placeholder="Your BVN">
-  </div><hr>
-  </center>
+<!-- 3. Personal details -->
+<div class="row"><label for="dob">Date of Birth</label><input type="date" id="dob" required></div>
 
-  <center>
-    <div>
-      <label for="resident-input">Residential address:</label>
-      <input type="text" id="resident-input" placeholder="Your Residential address">
-    </div><br><hr>
-  </center>
-  <center>
-    <label for="useremail">EMAIL:</label>
-    <input type="email" id="useremail" placeholder="Enter your Email address">
-    <div class="form-group checkbox-wrapper">
-      <label class="checkbox-label">
-        <input type="checkbox" name="terms" required />
-       - I agree to the <a href="terms.html" target="_blank">Terms and Conditions</a>
-      </label>
-    </div></center>
-    <br><br>
-<button class="submit" id="signup"><a href="homepage.html">Sign Up</a></button><br><br>
-</form>
-    </div>
+<div class="row inline">
+  <label><input type="radio" name="gender" value="male" required> Male</label>
+  <label><input type="radio" name="gender" value="female" required> Female</label>
+  <label><input type="radio" name="gender" value="other" required> Other</label>
+</div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
-    const submitButton = document.querySelector('.submit');
-    const requiredFields = form.querySelectorAll('input[required], select[required]');
-    
-    const isFormValid = () => {
-      return Array.from(requiredFields).every(field => {
-        if (field.type === 'checkbox') return field.checked;
-        return field.value.trim() !== '';
-      });
-    };
+<!-- 4. Nationality -->
+<div class="row"><label for="nationality">Nationality</label>
+  <select id="nationality" required>
+    <option value="">-- Select --</option>
+    <option value="nigeria">Nigeria</option><option value="united_states">United States</option>
+    <option value="canada">Canada</option><option value="united_kingdom">United Kingdom</option>
+    <option value="germany">Germany</option><option value="india">India</option>
+    <option value="china">China</option><option value="south_africa">South Africa</option>
+    <option value="brazil">Brazil</option><option value="france">France</option>
+    <option value="australia">Australia</option><option value="ghana">Ghana</option>
+    <option value="kenya">Kenya</option><option value="mexico">Mexico</option>
+    <option value="italy">Italy</option><option value="japan">Japan</option>
+  </select></div>
 
-    // Disable button initially
-    submitButton.disabled = true;
-    submitButton.style.opacity = '0.6';
-    submitButton.style.cursor = 'not-allowed';
+<!-- 5. Phone number -->
+<div class="row inline">
+  <select id="countryCode" required style="max-width:140px;">
+    <option value="">Code</option>
+    <option value="+234">🇳🇬 +234</option><option value="+1">🇺🇸 +1</option>
+    <option value="+44">🇬🇧 +44</option><option value="+49">🇩🇪 +49</option>
+    <option value="+91">🇮🇳 +91</option><option value="+86">🇨🇳 +86</option>
+    <option value="+27">🇿🇦 +27</option><option value="+55">🇧🇷 +55</option>
+    <option value="+81">🇯🇵 +81</option><option value="+33">🇫🇷 +33</option>
+    <option value="+61">🇦🇺 +61</option><option value="+39">🇮🇹 +39</option>
+    <option value="+52">🇲🇽 +52</option><option value="+233">🇬🇭 +233</option>
+    <option value="+254">🇰🇪 +254</option>
+  </select>
+  <input id="phone" type="tel" placeholder="Phone number" required>
+</div>
 
-    // Watch for changes in input fields
-    form.addEventListener('input', () => {
-      if (isFormValid()) {
-        submitButton.disabled = false;
-        submitButton.style.opacity = '1';
-        submitButton.style.cursor = 'pointer';
-      } else {
-        submitButton.disabled = true;
-        submitButton.style.opacity = '0.6';
-        submitButton.style.cursor = 'not-allowed';
-      }
+<!-- 6. NIN / BVN -->
+<div class="row"><label for="nin">NIN / BVN (11 digits)</label><input id="nin" maxlength="11" required></div>
+
+<!-- 7. Address -->
+<div class="row"><label for="address">Residential Address</label><input id="address" required></div>
+
+<!-- 8. Terms -->
+<div class="row inline"><input type="checkbox" id="terms" required><label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a></label></div>
+
+<button type="submit">Register</button>
+<p class="msg" id="msg"></p>
+<p class="redirect">Already have an account? <a href="login.html">Log in</a></p>
+
+  </form>  <script>
+    const form = document.getElementById('register-form');
+    const msg  = document.getElementById('msg');
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      msg.textContent='';
+
+      const data = {
+        surname      : document.getElementById('surname').value.trim(),
+        middlename   : document.getElementById('middlename').value.trim(),
+        email        : document.getElementById('email').value.trim(),
+        password     : document.getElementById('password').value.trim(),
+        dob          : document.getElementById('dob').value,
+        gender       : form.querySelector('input[name="gender"]:checked').value,
+        nationality  : document.getElementById('nationality').value,
+        phone        : document.getElementById('countryCode').value + document.getElementById('phone').value.trim(),
+        nin          : document.getElementById('nin').value.trim(),
+        address      : document.getElementById('address').value.trim()
+      };
+
+      if(!/^[0-9]{11}$/.test(data.nin)){
+        msg.style.color='salmon';msg.textContent='NIN/BVN must be exactly 11 numeric digits.';return;}
+
+      try{
+        const res = await fetch('https://your-backend-url.onrender.com/api/auth/register',{
+          method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)
+        });
+        const json=await res.json();
+        if(res.ok){msg.style.color='lightgreen';msg.textContent='Registration successful!';}
+        else{msg.style.color='salmon';msg.textContent=json.message||'Registration failed.';}
+      }catch(err){msg.style.color='salmon';msg.textContent='Server error. Try again later.';}
     });
-
-    // Optional: prevent submission if still invalid
-    form.addEventListener('submit', (e) => {
-      if (!isFormValid()) {
-        e.preventDefault();
-      }
-    });
-  });
-</script>
-</body>
+  </script></body>
 </html>
