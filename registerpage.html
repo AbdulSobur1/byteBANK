@@ -140,12 +140,15 @@
         msg.style.color='salmon';msg.textContent='NIN/BVN must be exactly 11 numeric digits.';return;}
 
       try{
-        const res = await fetch('https://your-backend-url.onrender.com/api/auth/register',{
+        const res = await fetch('https://bytebank-be.onrender.com//api/auth/register',{
           method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)
         });
         const json=await res.json();
-        if(res.ok){msg.style.color='lightgreen';msg.textContent='Registration successful!';}
-        else{msg.style.color='salmon';msg.textContent=json.message||'Registration failed.';}
+        if(res.ok){msg.style.color='lightgreen';msg.textContent='Registration successful!';
+          setTimeout(() => {
+            window.location.href = 'newlogin.html';
+          }, 2000);
+                  }else{msg.style.color='salmon';msg.textContent=json.message||'Registration failed.';}
       }catch(err){msg.style.color='salmon';msg.textContent='Server error. Please try again later.';}
     });
   </script></body>
