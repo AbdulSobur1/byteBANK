@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,8 +31,14 @@
       background:#1e293b;color:var(--text);font-size:.95rem;
     }
     input:focus,select:focus{outline:none;border-color:var(--accent);}
-    .inline{display:flex;gap:.75rem;}
-    .inline label{font-weight:400;margin:0;display:flex;align-items:center;gap:.25rem;}
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+      vertical-align: middle;
+    }
+    .inline{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;}
+    .inline label{font-weight:400;margin:0;display:flex;align-items:center;gap:.35rem;font-size:.9rem;}
     button{
       width:100%;padding:.9rem;margin-top:.8rem;border:none;border-radius:var(--radius);
       background:var(--primary);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;
@@ -45,24 +52,20 @@
 </head>
 <body>
   <form id="register-form" class="card">
-    <h2>Create your <span style="color:var(--primary)">byteBANK</span> account</h2><!-- 1. Name section -->
-<div class="row"><label for="surname">Surname</label><input id="surname" required></div>
+    <h2>Create your <span style="color:var(--primary)">byteBANK</span> account</h2><div class="row"><label for="surname">Surname</label><input id="surname" required></div>
+<div class="row"><label for="firstname">First Name</label><input id="firstname" required></div>
 <div class="row"><label for="middlename">Middle Name</label><input id="middlename" required></div>
-
-<!-- 2. Contact & security -->
 <div class="row"><label for="email">Email</label><input type="email" id="email" required></div>
 <div class="row"><label for="password">Password</label><input type="password" id="password" required></div>
-
-<!-- 3. Personal details -->
+<div class="row"><label for="confirm">Confirm Password</label><input type="password" id="confirm" required></div>
 <div class="row"><label for="dob">Date of Birth</label><input type="date" id="dob" required></div>
 
 <div class="row inline">
   <label><input type="radio" name="gender" value="male" required> Male</label>
   <label><input type="radio" name="gender" value="female" required> Female</label>
-  <label><input type="radio" name="gender" value="other" required> Other</label>
+  <label><input type="radio" name="gender" value="Rathernotsay" required> Rather not say</label>
 </div>
 
-<!-- 4. Nationality -->
 <div class="row"><label for="nationality">Nationality</label>
   <select id="nationality" required>
     <option value="">-- Select --</option>
@@ -76,7 +79,6 @@
     <option value="italy">Italy</option><option value="japan">Japan</option>
   </select></div>
 
-<!-- 5. Phone number -->
 <div class="row inline">
   <select id="countryCode" required style="max-width:140px;">
     <option value="">Code</option>
@@ -92,14 +94,13 @@
   <input id="phone" type="tel" placeholder="Phone number" required>
 </div>
 
-<!-- 6. NIN / BVN -->
 <div class="row"><label for="nin">NIN / BVN (11 digits)</label><input id="nin" maxlength="11" required></div>
-
-<!-- 7. Address -->
 <div class="row"><label for="address">Residential Address</label><input id="address" required></div>
 
-<!-- 8. Terms -->
-<div class="row inline"><input type="checkbox" id="terms" required><label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a></label></div>
+<div class="row inline">
+  <input type="checkbox" id="terms" required>
+  <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a></label>
+</div>
 
 <button type="submit">Register</button>
 <p class="msg" id="msg"></p>
@@ -113,11 +114,20 @@
       e.preventDefault();
       msg.textContent='';
 
+      const password = document.getElementById('password').value.trim();
+      const confirm = document.getElementById('confirm').value.trim();
+      if (password !== confirm) {
+        msg.style.color = 'salmon';
+        msg.textContent = 'Passwords do not match.';
+        return;
+      }
+
       const data = {
         surname      : document.getElementById('surname').value.trim(),
+        firstname    : document.getElementById('firstname').value.trim(),
         middlename   : document.getElementById('middlename').value.trim(),
         email        : document.getElementById('email').value.trim(),
-        password     : document.getElementById('password').value.trim(),
+        password     : password,
         dob          : document.getElementById('dob').value,
         gender       : form.querySelector('input[name="gender"]:checked').value,
         nationality  : document.getElementById('nationality').value,
@@ -136,7 +146,7 @@
         const json=await res.json();
         if(res.ok){msg.style.color='lightgreen';msg.textContent='Registration successful!';}
         else{msg.style.color='salmon';msg.textContent=json.message||'Registration failed.';}
-      }catch(err){msg.style.color='salmon';msg.textContent='Server error. Try again later.';}
+      }catch(err){msg.style.color='salmon';msg.textContent='Server error. Please try again later.';}
     });
   </script></body>
-</html>
+           </html>
