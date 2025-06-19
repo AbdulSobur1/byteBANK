@@ -140,7 +140,7 @@
         msg.style.color='salmon';msg.textContent='NIN/BVN must be exactly 11 numeric digits.';return;}
 
       try{
-        const res = await fetch('https://bytebank-be.onrender.com//api/auth/register',{
+        const res = await fetch('https://bytebank-be.onrender.com/api/auth/register',{
           method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)
         });
         const json=await res.json();
