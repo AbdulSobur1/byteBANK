@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | byteBANK</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<nav class="mobile-nav">
+  <div class="mobile-logo">byteBANK</div>
+  <input type="checkbox" id="menu-toggle" />
+  <label for="menu-toggle" class="menu-icon">☰</label>
+  <ul class="mobile-menu">
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="accounts.html">Accounts</a></li>
+    <li><a href="transfers.html">Transfers</a></li>
+    <li><a href="cards.html">Cards</a></li>
+    <li><a href="loans.html">Loans</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+<style>
+.mobile-nav {
+  display: none;
+  background: var(--card-bg);
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.mobile-nav .mobile-logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+.menu-icon {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+#menu-toggle {
+  display: none;
+}
+.mobile-menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  display: none;
+  flex-direction: column;
+}
+.mobile-menu li {
+  margin: 0.5rem 0;
+}
+.mobile-menu li a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+}
+#menu-toggle:checked ~ .mobile-menu {
+  display: flex;
+}
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: block;
+  }
+}
+</style>
+
+</head>
+<body class="dashboard-page">
+
+  <header>
+    <div class="logo">byteBANK</div>
+    <button class="theme-toggle">🌙</button>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="transfers.html">Transfers</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="loans.html">Loans</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      <div class="card">
+        <h2>Hello, <span id="user-name">User</span> 👋</h2>
+        <p>Account Balance: <strong id="user-balance">₦0</strong></p>
+      </div>
+
+      <div class="card">
+        <h2>Recent Transactions</h2>
+        <ul class="transactions" id="tx-list">
+          <li>Loading...</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>My Card</h2>
+        <p>**** **** **** 3201</p>
+        <p>Expires: 12/27</p>
+      </div>
+    </main>
+  </div>
+
+  <footer>&copy; 2025 byteBANK Dashboard</footer>
+
+  <script src="theme-toggle.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

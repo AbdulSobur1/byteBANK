@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cards | byteBANK</title>
+  <style>
+:root {
+  --primary: #0066ff;
+  --bg: #f5f7fa;
+  --text: #333;
+  --card-bg: #fff;
+  --border: #ddd;
+}
+[data-theme="dark"] {
+  --bg: #121212;
+  --text: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --border: #333;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+.theme-toggle {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+.card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  margin-bottom: 2rem;
+}
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 2rem;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+th, td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+th {
+  background: var(--card-bg);
+  color: var(--text);
+}
+button {
+  padding: 0.4rem 0.8rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">byteBANK</div>
+    <button class="theme-toggle">🌙</button>
+  </header>
+
+  <div class="container">
+    
+    <h2>My Cards</h2>
+    <div class="card">
+      <p>💳 **** **** **** 3201 — Active</p>
+      <p>💳 **** **** **** 1182 — Blocked</p>
+      <button onclick="alert('New virtual card requested!')">Request New Card</button>
+    </div>
+  
+  </div>
+
+  <footer>&copy; 2025 byteBANK. All rights reserved.</footer>
+  
+<script>
+  const toggleBtn = document.querySelector('.theme-toggle');
+  toggleBtn.addEventListener('click', () => {
+    const root = document.documentElement;
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? '' : 'dark');
+    toggleBtn.textContent = isDark ? '🌙' : '☀️';
+  });
+</script>
+<script src="theme-toggle.js"></script>
+
+</body>
+</html>
