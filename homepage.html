@@ -7,13 +7,6 @@
         <link rel="stylesheet" href="styled.css" />
         <link rel="stylesheet" href="homepagestyle.css" />
     </head>
-    <script>
-  const navToggle = document.getElementById('nav-toggle');
-  const navMenu = document.getElementById('nav-menu');
-  navToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('show');
-  });
-    </script>
     <body>
         <header class="navbar">
             <div class="logo">byteBANK</div>
@@ -102,5 +95,12 @@
         </footer>
 
         <script src="index.js"></script>
+        <script>
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+        </script>
     </body>
 </html>
