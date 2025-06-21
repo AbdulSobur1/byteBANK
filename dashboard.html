@@ -27,7 +27,7 @@
       color: var(--text);
     }
 
-    header, .mobile-nav-header {
+    header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -51,6 +51,24 @@
       cursor: pointer;
     }
 
+    nav {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    nav a.active {
+      color: var(--primary);
+    }
+
     .container {
       max-width: 960px;
       margin: auto;
@@ -70,35 +88,21 @@
       color: var(--primary);
     }
 
-    /* Mobile Navigation */
-    .mobile-nav {
-      background: var(--card-bg);
+    .responsive-table {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
-    .menu-icon {
-      cursor: pointer;
-      font-size: 1.5rem;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
     }
-    #menu-toggle {
-      display: none;
-    }
-    .mobile-menu {
-      list-style: none;
-      padding: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-    #menu-toggle:checked ~ .mobile-menu {
-      max-height: 500px;
-    }
-    .mobile-menu li {
-      padding: 0.75rem 1rem;
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
       border-bottom: 1px solid var(--border);
-    }
-    .mobile-menu li a {
-      color: var(--text);
-      text-decoration: none;
-      display: block;
     }
 
     footer {
@@ -109,31 +113,46 @@
       margin-top: 2rem;
     }
 
-    @media (min-width: 769px) {
-      .mobile-nav {
+    .mobile-toggle {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      nav {
         display: none;
+        flex-direction: column;
+      }
+      .mobile-toggle {
+        display: block;
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        cursor: pointer;
+      }
+      .nav-open nav {
+        display: flex;
       }
     }
   </style>
 </head>
 <body>
 
-  <nav class="mobile-nav">
-    <div class="mobile-nav-header">
-      <div class="logo">byteBANK</div>
-      <input type="checkbox" id="menu-toggle" />
-      <label for="menu-toggle" class="menu-icon">☰</label>
+  <header>
+    <div class="logo">byteBANK</div>
+    <div style="display: flex; align-items: center;">
+      <span class="mobile-toggle" onclick="toggleNav()">☰</span>
+      <button class="theme-toggle">🌙</button>
     </div>
-    <ul class="mobile-menu">
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="accounts.html">Accounts</a></li>
-      <li><a href="transfers.html">Transfers</a></li>
-      <li><a href="cards.html">Cards</a></li>
-      <li><a href="loans.html">Loans</a></li>
-      <li><a href="settings.html">Settings</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="transactions.html">Transactions</a></li>
-    </ul>
+  </header>
+
+  <nav>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="accounts.html">Accounts</a>
+    <a href="transfers.html">Transfers</a>
+    <a href="cards.html">Cards</a>
+    <a href="loans.html">Loans</a>
+    <a href="settings.html">Settings</a>
+    <a href="services.html">Services</a>
+    <a href="#transactions">Transactions</a>
   </nav>
 
   <div class="container">
@@ -143,18 +162,20 @@
       <p><strong>Last Login:</strong> June 21, 2025</p>
     </div>
 
-    <div class="card" id="tx-table">
+    <div class="card" id="transactions">
       <h3>Recent Transactions</h3>
-      <table>
-        <thead>
-          <tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>2025-06-20</td><td>Transfer to UBA</td><td>₦10,000</td><td>Completed</td></tr>
-          <tr><td>2025-06-18</td><td>Airtime Top-up</td><td>₦500</td><td>Completed</td></tr>
-          <tr><td>2025-06-17</td><td>Loan Repayment</td><td>₦50,000</td><td>Pending</td></tr>
-        </tbody>
-      </table>
+      <div class="responsive-table">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2025-06-20</td><td>Transfer to UBA</td><td>₦10,000</td><td>Completed</td></tr>
+            <tr><td>2025-06-18</td><td>Airtime Top-up</td><td>₦500</td><td>Completed</td></tr>
+            <tr><td>2025-06-17</td><td>Loan Repayment</td><td>₦50,000</td><td>Pending</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -162,23 +183,24 @@
 
   <script>
     const toggleBtn = document.querySelector('.theme-toggle');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        const root = document.documentElement;
-        const isDark = root.getAttribute('data-theme') === 'dark';
-        root.setAttribute('data-theme', isDark ? '' : 'dark');
-        toggleBtn.textContent = isDark ? '🌙' : '☀️';
-        localStorage.setItem('theme', isDark ? 'light' : 'dark');
-      });
-    }
+    toggleBtn.addEventListener('click', () => {
+      const root = document.documentElement;
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? '' : 'dark');
+      toggleBtn.textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
 
     window.addEventListener("DOMContentLoaded", () => {
       if (localStorage.getItem("theme") === "dark") {
         document.documentElement.setAttribute("data-theme", "dark");
-        const btn = document.querySelector(".theme-toggle");
-        if (btn) btn.textContent = "☀️";
+        document.querySelector(".theme-toggle").textContent = "☀️";
       }
     });
+
+    function toggleNav() {
+      document.body.classList.toggle('nav-open');
+    }
   </script>
 </body>
 </html>
