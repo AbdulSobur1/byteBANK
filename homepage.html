@@ -4,20 +4,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width-device-width, initial-scale=1.0" />
         <title>byteBANK - Home</title>
-        <link rel="stylesheet" href="homepagestyle.css" />
         <link rel="stylesheet" href="styled.css" />
+        <link rel="stylesheet" href="homepagestyle.css" />
     </head>
     <body>
-        <header>
-            <h1>byteBANK</h1>
-            <nav class="Soburr">
+        <header class="navbar">
+            <div class="logo">byteBANK</div>
+            <nav id="nav-menu" class="nav-links">
                 <a href="homepage.html">Home</a>
-                <a href="dashboard.html">Dashboard</a>
                 <a href="services.html">Services</a>
+                <a href="dashboard.html">Dashboard</a>
                 <a href="transactions.html">Transactions</a>
             </nav>
-            <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
+
+            <div id="nav-toggle" class="hamburger">&#9776;</div>
         </header>
+            <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
 
         <main>
            <section class="hero">
