@@ -7,6 +7,13 @@
         <link rel="stylesheet" href="styled.css" />
         <link rel="stylesheet" href="homepagestyle.css" />
     </head>
+    <script>
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+    </script>
     <body>
         <header class="navbar">
             <div class="logo">byteBANK</div>
@@ -17,9 +24,9 @@
                 <a href="transactions.html">Transactions</a>
             </nav>
 
+             <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
             <div id="nav-toggle" class="hamburger">&#9776;</div>
         </header>
-            <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
 
         <main>
            <section class="hero">
