@@ -1,0 +1,161 @@
+/* --------------- Root Theme Tokens --------------- */
+:root {
+  --bg-grad: linear-gradient(130deg, #0f172a 0%, #1e293b 100%);
+  --card-bg: rgba(28, 31, 40, 0.65);
+  --border: rgba(255, 255, 255, 0.10);
+  --primary: #0ea5e9;      /* buttons, links */
+  --accent : #38bdf8;      /* highlights      */
+  --text   : #f1f5f9;      /* primary text    */
+  --text-dim: #94a3b8;     /* secondary text  */
+  --radius : 12px;
+  --shadow : 0 8px 25px rgba(0,0,0,.55);
+  --trans  : .25s ease;
+  --blur   : 14px;
+}
+
+/* --------------- Global Resets --------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  background: var(--bg-grad);
+  line-height: 1.6;
+}
+img { max-width: 100%; height: auto; }
+
+/* --------------- Navbar --------------- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #10151c;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: .95rem;
+  transition: color var(--trans);
+}
+.nav-links a:hover { color: var(--accent); }
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* Mobile navbar */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background: #1a1f2b;
+    padding: 1rem 0;
+    display: none;
+  }
+  .nav-links.show { display: flex; }
+  .hamburger { display: block; }
+}
+
+/* --------------- Typography --------------- */
+h1, h2, h3, h4, h5 {
+  margin: .6em 0 .4em;
+  font-weight: 600;
+  line-height: 1.25;
+}
+p { margin: .5em 0 1.2em; }
+
+/* --------------- Buttons & Inputs --------------- */
+button,
+input[type=submit] {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: .8rem 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--trans);
+}
+button:hover,
+input[type=submit]:hover { background: #0284c7; }
+
+input,
+select,
+textarea {
+  width: 100%;
+  background: #1e293b;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .75rem 1rem;
+  font-size: .95rem;
+  transition: border var(--trans), box-shadow var(--trans);
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 4px var(--accent);
+}
+input[type="checkbox"]{
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+  vertical-align: middle;
+}
+
+/* --------------- Card / Section Wrapper --------------- */
+.card,
+.section {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--blur));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin: 1.5rem auto;
+  width: 100%;
+  max-width: 530px;
+}
+
+/* --------------- Tables (e.g., transactions) --------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+th, td {
+  padding: .75rem 1rem;
+  border: 1px solid var(--border);
+}
+th { background: #1a1f2b; text-align: left; }
+
+/* --------------- Utility --------------- */
+.text-center { text-align: center; }
+.mt-1 { margin-top: .5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-2 { margin-bottom: 1rem; }
