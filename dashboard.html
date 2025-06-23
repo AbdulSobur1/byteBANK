@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,7 +155,7 @@
   </nav>
 
   <div class="container">
-    <h2>Welcome back, John!</h2>
+    <h2 id="welcome-msg">Welcome back!</h2>
     <div class="card">
       <p><strong>Account Balance:</strong> ₦1,250,500.00</p>
       <p><strong>Last Login:</strong> June 21, 2025</p>
@@ -182,6 +181,7 @@
   <footer>&copy; 2025 byteBANK. All rights reserved.</footer>
 
   <script>
+    // Theme toggle
     const toggleBtn = document.querySelector('.theme-toggle');
     toggleBtn.addEventListener('click', () => {
       const root = document.documentElement;
@@ -196,12 +196,18 @@
         document.documentElement.setAttribute("data-theme", "dark");
         document.querySelector(".theme-toggle").textContent = "☀️";
       }
+
+      // Personalize greeting
+      const user = JSON.parse(localStorage.getItem('bytebankUser'));
+      const welcome = document.getElementById('welcome-msg');
+      if (user && user.firstname) {
+        welcome.textContent = `Welcome back, ${user.firstname}!`;
+      }
     });
 
     function toggleNav() {
       document.body.classList.toggle('nav-open');
     }
   </script>
-  <script src="theme-toggle.html"></script>
 </body>
-</html>
+  </html>
