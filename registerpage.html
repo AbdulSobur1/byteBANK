@@ -52,67 +52,71 @@
 </head>
 <body>
   <form id="register-form" class="card">
-    <h2>Create your <span style="color:var(--primary)">byteBANK</span> account</h2><div class="row"><label for="surname">Surname</label><input id="surname" required></div>
-<div class="row"><label for="firstname">First Name</label><input id="firstname" required></div>
-<div class="row"><label for="middlename">Middle Name</label><input id="middlename" required></div>
-<div class="row"><label for="email">Email</label><input type="email" id="email" required></div>
-<div class="row"><label for="password">Password</label><input type="password" id="password" required></div>
-<div class="row"><label for="confirm">Confirm Password</label><input type="password" id="confirm" required></div>
-<div class="row"><label for="dob">Date of Birth</label><input type="date" id="dob" required></div>
+    <h2>Create your <span style="color:var(--primary)">byteBANK</span> account</h2>
 
-<div class="row inline">
-  <label><input type="radio" name="gender" value="male" required> Male</label>
-  <label><input type="radio" name="gender" value="female" required> Female</label>
-  <label><input type="radio" name="gender" value="Rathernotsay" required> Rather not say</label>
-</div>
+    <div class="row"><label for="surname">Surname</label><input id="surname" required></div>
+    <div class="row"><label for="firstname">First Name</label><input id="firstname" required></div>
+    <div class="row"><label for="middlename">Middle Name</label><input id="middlename" required></div>
+    <div class="row"><label for="email">Email</label><input type="email" id="email" required></div>
+    <div class="row"><label for="password">Password</label><input type="password" id="password" required></div>
+    <div class="row"><label for="confirm">Confirm Password</label><input type="password" id="confirm" required></div>
+    <div class="row"><label for="dob">Date of Birth</label><input type="date" id="dob" required></div>
 
-<div class="row"><label for="nationality">Nationality</label>
-  <select id="nationality" required>
-    <option value="">-- Select --</option>
-    <option value="nigeria">Nigeria</option><option value="united_states">United States</option>
-    <option value="canada">Canada</option><option value="united_kingdom">United Kingdom</option>
-    <option value="germany">Germany</option><option value="india">India</option>
-    <option value="china">China</option><option value="south_africa">South Africa</option>
-    <option value="brazil">Brazil</option><option value="france">France</option>
-    <option value="australia">Australia</option><option value="ghana">Ghana</option>
-    <option value="kenya">Kenya</option><option value="mexico">Mexico</option>
-    <option value="italy">Italy</option><option value="japan">Japan</option>
-  </select></div>
+    <div class="row inline">
+      <label><input type="radio" name="gender" value="male" required> Male</label>
+      <label><input type="radio" name="gender" value="female" required> Female</label>
+      <label><input type="radio" name="gender" value="Rathernotsay" required> Rather not say</label>
+    </div>
 
-<div class="row inline">
-  <select id="countryCode" required style="max-width:140px;">
-    <option value="">Code</option>
-    <option value="+234">🇳🇬 +234</option><option value="+1">🇺🇸 +1</option>
-    <option value="+44">🇬🇧 +44</option><option value="+49">🇩🇪 +49</option>
-    <option value="+91">🇮🇳 +91</option><option value="+86">🇨🇳 +86</option>
-    <option value="+27">🇿🇦 +27</option><option value="+55">🇧🇷 +55</option>
-    <option value="+81">🇯🇵 +81</option><option value="+33">🇫🇷 +33</option>
-    <option value="+61">🇦🇺 +61</option><option value="+39">🇮🇹 +39</option>
-    <option value="+52">🇲🇽 +52</option><option value="+233">🇬🇭 +233</option>
-    <option value="+254">🇰🇪 +254</option>
-  </select>
-  <input id="phone" type="tel" placeholder="Phone number" required>
-</div>
+    <div class="row"><label for="nationality">Nationality</label>
+      <select id="nationality" required>
+        <option value="">-- Select --</option>
+        <option value="nigeria">Nigeria</option><option value="united_states">United States</option>
+        <option value="canada">Canada</option><option value="united_kingdom">United Kingdom</option>
+        <option value="germany">Germany</option><option value="india">India</option>
+        <option value="china">China</option><option value="south_africa">South Africa</option>
+        <option value="brazil">Brazil</option><option value="france">France</option>
+        <option value="australia">Australia</option><option value="ghana">Ghana</option>
+        <option value="kenya">Kenya</option><option value="mexico">Mexico</option>
+        <option value="italy">Italy</option><option value="japan">Japan</option>
+      </select>
+    </div>
 
-<div class="row"><label for="nin">NIN / BVN (11 digits)</label><input id="nin" maxlength="11" required></div>
-<div class="row"><label for="address">Residential Address</label><input id="address" required></div>
+    <div class="row inline">
+      <select id="countryCode" required style="max-width:140px;">
+        <option value="">Code</option>
+        <option value="+234">🇳🇬 +234</option><option value="+1">🇺🇸 +1</option>
+        <option value="+44">🇬🇧 +44</option><option value="+49">🇩🇪 +49</option>
+        <option value="+91">🇮🇳 +91</option><option value="+86">🇨🇳 +86</option>
+        <option value="+27">🇿🇦 +27</option><option value="+55">🇧🇷 +55</option>
+        <option value="+81">🇯🇵 +81</option><option value="+33">🇫🇷 +33</option>
+        <option value="+61">🇦🇺 +61</option><option value="+39">🇮🇹 +39</option>
+        <option value="+52">🇲🇽 +52</option><option value="+233">🇬🇭 +233</option>
+        <option value="+254">🇰🇪 +254</option>
+      </select>
+      <input id="phone" type="tel" placeholder="Phone number" required>
+    </div>
 
-<div class="row inline">
-  <input type="checkbox" id="terms" required>
-  <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a></label>
-</div>
+    <div class="row"><label for="nin">NIN / BVN (11 digits)</label><input id="nin" maxlength="11" required></div>
+    <div class="row"><label for="address">Residential Address</label><input id="address" required></div>
 
-<button type="submit">Register</button>
-<p class="msg" id="msg"></p>
-<p class="redirect">Already have an account? <a href="newlogin.html">Log in</a></p>
+    <div class="row inline">
+      <input type="checkbox" id="terms" required>
+      <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a></label>
+    </div>
 
-  </form>  <script>
+    <button type="submit">Register</button>
+    <p class="msg" id="msg"></p>
+    <p class="redirect">Already have an account? <a href="newlogin.html">Log in</a></p>
+  </form>
+
+  <script>
     const form = document.getElementById('register-form');
     const msg  = document.getElementById('msg');
 
-    form.addEventListener('submit', async (e)=>{
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      msg.textContent='';
+      msg.textContent = '';
 
       const password = document.getElementById('password').value.trim();
       const confirm = document.getElementById('confirm').value.trim();
@@ -123,32 +127,41 @@
       }
 
       const data = {
-        surname      : document.getElementById('surname').value.trim(),
-        firstname    : document.getElementById('firstname').value.trim(),
-        middlename   : document.getElementById('middlename').value.trim(),
-        email        : document.getElementById('email').value.trim(),
-        password     : password,
-        dob          : document.getElementById('dob').value,
-        gender       : form.querySelector('input[name="gender"]:checked').value,
-        nationality  : document.getElementById('nationality').value,
-        phone        : document.getElementById('countryCode').value + document.getElementById('phone').value.trim(),
-        nin          : document.getElementById('nin').value.trim(),
-        address      : document.getElementById('address').value.trim()
+        surname: document.getElementById('surname').value.trim(),
+        firstname: document.getElementById('firstname').value.trim(),
+        middlename: document.getElementById('middlename').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        password: password,
+        dob: document.getElementById('dob').value,
+        gender: form.querySelector('input[name="gender"]:checked')?.value,
+        nationality: document.getElementById('nationality').value,
+        phone: document.getElementById('countryCode').value + document.getElementById('phone').value.trim(),
+        nin: document.getElementById('nin').value.trim(),
+        address: document.getElementById('address').value.trim()
       };
 
-      if(!/^[0-9]{11}$/.test(data.nin)){
-        msg.style.color='salmon';msg.textContent='NIN/BVN must be exactly 11 numeric digits.';return;}
+      if (!/^[0-9]{11}$/.test(data.nin)) {
+        msg.style.color = 'salmon';
+        msg.textContent = 'NIN/BVN must be exactly 11 numeric digits.';
+        return;
+      }
 
-      try{
-        const res = await fetch('https://bytebank-be.onrender.com/api/auth/register',{
-          method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)
-        });
-        const json=await res.json();
-        if(res.ok){msg.style.color='lightgreen';msg.textContent='Registration successful!';
-          setTimeout(() => {
-            window.location.href = 'newlogin.html';
-          }, 2000);
-                  }else{msg.style.color='salmon';msg.textContent=json.message||'Registration failed.';}
+      if (!document.getElementById('terms').checked) {
+        msg.style.color = 'salmon';
+        msg.textContent = 'You must agree to the Terms & Conditions.';
+        return;
+      }
+
+      msg.style.color = 'lightgreen';
+      msg.textContent = 'Registration successful! Redirecting...';
+
+      setTimeout(() => {
+        window.location.href = 'homepage.html'; // Change to your dashboard filename
+      }, 1500);
+    });
+  </script>
+</body>
+                                                                    </html>or='salmon';msg.textContent=json.message||'Registration failed.';}
       }catch(err){msg.style.color='salmon';msg.textContent='Server error. Please try again later.';}
     });
   </script></body>
