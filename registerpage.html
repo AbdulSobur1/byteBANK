@@ -155,6 +155,12 @@
       msg.style.color = 'lightgreen';
       msg.textContent = 'Registration successful! Redirecting...';
 
+       // Save user info to localstorage
+      localStorage.setItem('user', JSON.stringify({
+        firstname: data.firstname,
+        surname: data.surname
+      }));
+
       setTimeout(() => {
         window.location.href = 'dashboard.html'; // Change to your dashboard filename
       }, 1500);
