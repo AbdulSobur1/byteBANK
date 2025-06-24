@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login | byteBANK</title>
-
   <style>
     :root {
       --primary: #0d6efd;
@@ -16,9 +15,7 @@
       --transition: 0.3s ease;
       --blur: 18px;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -29,13 +26,11 @@
       justify-content: center;
       align-items: center;
     }
-
     .overlay {
       position: absolute;
       inset: 0;
       background: rgba(0, 0, 0, 0.55);
     }
-
     .login-card {
       position: relative;
       backdrop-filter: blur(var(--blur));
@@ -48,26 +43,21 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
       animation: fadeIn 0.6s ease-out;
     }
-
     .login-card h2 {
       margin: 0 0 1.8rem;
       font-size: 1.9rem;
       text-align: center;
       color: var(--accent);
     }
-
     .login-card h2 span {
       color: var(--primary);
     }
-
     .form-group { margin-bottom: 1.4rem; position: relative; }
-
     label {
       display: block;
       margin-bottom: 0.45rem;
       font-weight: 600;
     }
-
     input[type="email"],
     input[type="password"] {
       width: 100%;
@@ -79,13 +69,11 @@
       font-size: 1rem;
       transition: border var(--transition), box-shadow var(--transition);
     }
-
     input:focus {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 6px rgba(78, 168, 255, 0.5);
     }
-
     .toggle-pass {
       position: absolute;
       top: 50%;
@@ -96,9 +84,7 @@
       cursor: pointer;
       user-select: none;
     }
-
     .toggle-pass:hover { color: var(--accent); }
-
     button {
       width: 100%;
       padding: 0.9rem;
@@ -111,53 +97,43 @@
       cursor: pointer;
       transition: background var(--transition);
     }
-
     button:hover { background: #0b5ed7; }
-
     .message {
       text-align: center;
       margin-top: 1rem;
       font-size: 0.95rem;
       color: #ccc;
     }
-
     .redirect {
       text-align: center;
       margin-top: 1.5rem;
       font-size: 0.95rem;
     }
-
     .redirect a {
       color: var(--accent);
       text-decoration: none;
     }
-
     .redirect a:hover {
       text-decoration: underline;
     }
-
     .forgot {
       text-align: right;
       font-size: 0.9rem;
       margin-top: -1rem;
       margin-bottom: 1.4rem;
     }
-
     .forgot a {
       color: #aaa;
       text-decoration: none;
     }
-
     .forgot a:hover {
       text-decoration: underline;
       color: var(--accent);
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @media (max-width: 500px) {
       .login-card { padding: 2rem 1.5rem; }
     }
@@ -199,34 +175,45 @@
     const passwordInput = document.getElementById('password');
     const msg = document.getElementById('form-msg');
 
+    // Toggle password visibility
     togglePass.addEventListener('click', () => {
       const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
       passwordInput.setAttribute('type', type);
       togglePass.textContent = type === 'password' ? '👁️' : '🙈';
     });
 
+    // Handle login
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       msg.textContent = '';
 
-      const email = document.getElementById('email').value.trim().toLowerCase();
+      const email = document.getElementById('email').value.trim();
       const password = passwordInput.value.trim();
 
-      const users = JSON.parse(localStorage.getItem('users')) || [];
-      const matchedUser = users.find(u => u.email === email && u.password === password);
-
-      if (!matchedUser) {
+      const registeredUser = JSON.parse(localStorage.getItem('registeredUser')); // Get stored user
+      if (!registeredUser) {
         msg.style.color = 'salmon';
-        msg.textContent = 'Invalid email or password.';
+        msg.textContent = 'No user found. Please register first.';
         return;
       }
 
-      // Save currently logged-in user
-      localStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
+      if (registeredUser.email === email && registeredUser.password === password) {
+        localStorage.setItem('user', JSON.stringify({
+          firstname: registeredUser.firstname,
+          surname: registeredUser.surname,
+          email: registeredUser.email
+        }));
 
-      msg.style.color = 'lightgreen';
-      msg.textContent = 'Login successful! Redirecting...';
-      setTimeout(() => window.location.href = 'dashboard.html', 1500);
+        msg.style.color = 'lightgreen';
+        msg.textContent = 'Login successful! Redirecting...';
+
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1500);
+      } else {
+        msg.style.color = 'salmon';
+        msg.textContent = 'Invalid email or password.';
+      }
     });
   </script>
 </body>
