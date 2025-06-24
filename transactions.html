@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Transactions | byteBANK</title>
+  <link rel="stylesheet" href="transactions.css" />
+</head>
+<body>
+  <header>
+    <h1>byteBANK</h1>
+    <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button> 
+  </header>
+
+  <main>
+    <section class="transactions-section">
+      <h2>Transaction History</h2>
+
+      <div class="filters">
+        <label>
+          Search:
+          <input type="text" id="searchInput" placeholder="Search description or type" />
+        </label>
+
+        <label>
+          Type:
+          <select id="typeFilter">
+            <option value="all">All</option>
+            <option value="deposit">Deposit</option>
+            <option value="withdrawal">Withdrawal</option>
+            <option value="transfer">Transfer</option>
+            <option value="payment">Payment</option>
+          </select>
+        </label>
+
+        <label>
+          From:
+          <input type="date" id="startDate" />
+        </label>
+
+        <label>
+          To:
+          <input type="date" id="endDate" />
+        </label>
+      </div>
+
+      <table id="transactionTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Transactions will be inserted here by JS -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Contact</a>
+    </div>
+    <p>&copy; 2025 byteBANK. All rights reserved.</p>
+  </footer>
+
+  <script src="transactions.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
