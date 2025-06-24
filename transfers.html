@@ -1,3 +1,4 @@
+<!-- TRANSFERS PAGE (transfers.html) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,124 +6,170 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Transfers | byteBANK</title>
   <style>
-:root {
-  --primary: #0066ff;
-  --bg: #f5f7fa;
-  --text: #333;
-  --card-bg: #fff;
-  --border: #ddd;
-}
-[data-theme="dark"] {
-  --bg: #121212;
-  --text: #e0e0e0;
-  --card-bg: #1e1e1e;
-  --border: #333;
-}
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-}
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: var(--card-bg);
-  border-bottom: 1px solid var(--border);
-}
-.logo {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: var(--primary);
-}
-.theme-toggle {
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 0.4rem 0.8rem;
-  cursor: pointer;
-}
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 2rem;
-}
-.card {
-  background: var(--card-bg);
-  padding: 1.5rem;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-  margin-bottom: 2rem;
-}
-footer {
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: #888;
-  margin-top: 2rem;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-}
-th, td {
-  text-align: left;
-  padding: 0.75rem;
-  border-bottom: 1px solid var(--border);
-}
-th {
-  background: var(--card-bg);
-  color: var(--text);
-}
-button {
-  padding: 0.4rem 0.8rem;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-</style>
+    :root {
+      --primary: #0066ff;
+      --bg: #f5f7fa;
+      --text: #333;
+      --card-bg: #fff;
+      --border: #ddd;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --border: #333;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    .theme-toggle {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      margin-bottom: 2rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 2rem;
+    }
+    label { display: block; margin-bottom: .5rem; }
+    input {
+      width: 100%; padding: .6rem; border: 1px solid var(--border);
+      border-radius: 5px; margin-bottom: 1rem;
+    }
+    button {
+      padding: 0.6rem 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #receipt-popup {
+      position: fixed;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: white; padding: 2rem;
+      border: 1px solid #ccc; border-radius: 10px;
+      display: none; box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      max-width: 400px; z-index: 9999;
+    }
+    #receipt-popup button { margin-top: 1rem; }
+  </style>
 </head>
 <body>
-
   <header>
     <div class="logo">byteBANK</div>
     <button class="theme-toggle">🌙</button>
   </header>
 
   <div class="container">
-    
     <h2>Transfer Funds</h2>
     <div class="card">
-      <form onsubmit="event.preventDefault(); alert('Transfer submitted!')">
-        <p><label>Recipient Account: <input type="text" required></label></p>
-        <p><label>Amount: <input type="number" required></label></p>
-        <p><label>Bank Name: <input type="text" required></label></p>
-        <p><button type="submit">Send Money</button></p>
+      <form id="transfer-form">
+        <label>Recipient Account: <input type="text" id="recipient" required></label>
+        <label>Amount: <input type="number" id="amount" required></label>
+        <label>Bank Name: <input type="text" id="bank" required></label>
+        <button type="submit">Send Money</button>
       </form>
     </div>
-  
+  </div>
+
+  <div id="receipt-popup">
+    <div id="receipt-content"></div>
+    <button onclick="printReceipt()">Print Receipt</button>
+    <button onclick="closePopup()">Close</button>
   </div>
 
   <footer>&copy; 2025 byteBANK. All rights reserved.</footer>
-  
-<script>
-  const toggleBtn = document.querySelector('.theme-toggle');
-  toggleBtn.addEventListener('click', () => {
-    const root = document.documentElement;
-    const isDark = root.getAttribute('data-theme') === 'dark';
-    root.setAttribute('data-theme', isDark ? '' : 'dark');
-    toggleBtn.textContent = isDark ? '🌙' : '☀️';
-  });
-</script>
-<script src="theme-toggle.js"></script>
 
+  <script>
+    document.querySelector('.theme-toggle').addEventListener('click', () => {
+      const root = document.documentElement;
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? '' : 'dark');
+      document.querySelector('.theme-toggle').textContent = isDark ? '🌙' : '☀️';
+    });
+
+    document.getElementById('transfer-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const recipient = document.getElementById('recipient').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value);
+      const bank = document.getElementById('bank').value.trim();
+      const date = new Date().toISOString().split('T')[0];
+
+      const transaction = {
+        date, description: `Transfer to ${bank} (${recipient})`,
+        amount: `₦${amount.toLocaleString()}`,
+        status: 'Completed'
+      };
+
+      const history = JSON.parse(localStorage.getItem('transactions') || '[]');
+      history.push(transaction);
+      localStorage.setItem('transactions', JSON.stringify(history));
+
+      showReceipt(transaction);
+
+      this.reset();
+    });
+
+    function showReceipt(txn) {
+      const content = `
+        <h3>Transaction Receipt</h3>
+        <p><strong>Date:</strong> ${txn.date}</p>
+        <p><strong>Description:</strong> ${txn.description}</p>
+        <p><strong>Amount:</strong> ${txn.amount}</p>
+        <p><strong>Status:</strong> ${txn.status}</p>
+      `;
+      document.getElementById('receipt-content').innerHTML = content;
+      document.getElementById('receipt-popup').style.display = 'block';
+    }
+
+    function printReceipt() {
+      const receipt = document.getElementById('receipt-content').innerHTML;
+      const win = window.open('', '', 'width=400,height=600');
+      win.document.write(`<html><head><title>Receipt</title></head><body>${receipt}</body></html>`);
+      win.document.close();
+      win.print();
+    }
+
+    function closePopup() {
+      document.getElementById('receipt-popup').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
