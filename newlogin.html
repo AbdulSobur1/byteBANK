@@ -184,7 +184,7 @@
       <a href="forgot-password.html">Forgot Password?</a>
     </div>
 
-    <button onclick="location.href=dashboard.html'">Login</a></button>
+    <button type="submit">Login</button>
 
     <p class="message" id="form-msg"></p>
 
@@ -205,36 +205,28 @@
       togglePass.textContent = type === 'password' ? '👁️' : '🙈';
     });
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       msg.textContent = '';
 
-      const email = document.getElementById('email').value.trim();
+      const email = document.getElementById('email').value.trim().toLowerCase();
       const password = passwordInput.value.trim();
 
-      try {
-        const res = await fetch('http://localhost:5000/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ email, password })
-        });
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const matchedUser = users.find(u => u.email === email && u.password === password);
 
-        const data = await res.json();
-
-        if (res.ok) {
-          msg.style.color = 'lightgreen';
-          msg.textContent = 'Login successful! Redirecting...';
-          setTimeout(() => window.location.href = 'dashboard.html', 1500);
-        } else {
-          msg.style.color = 'salmon';
-          msg.textContent = data.message || 'Login failed.';
-        }
-      } catch (err) {
+      if (!matchedUser) {
         msg.style.color = 'salmon';
-        msg.textContent = 'Server error. Please try again later.';
-        console.error(err);
+        msg.textContent = 'Invalid email or password.';
+        return;
       }
+
+      // Save currently logged-in user
+      localStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
+
+      msg.style.color = 'lightgreen';
+      msg.textContent = 'Login successful! Redirecting...';
+      setTimeout(() => window.location.href = 'dashboard.html', 1500);
     });
   </script>
 </body>
