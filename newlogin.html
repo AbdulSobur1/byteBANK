@@ -2,228 +2,231 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard | byteBANK</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | byteBANK</title>
+
   <style>
     :root {
-      --primary: #0066ff;
-      --bg: #f5f7fa;
-      --text: #333;
-      --card-bg: #fff;
-      --border: #ddd;
+      --primary: #0d6efd;
+      --accent: #4ea8ff;
+      --bg-dark: #10151c;
+      --glass-bg: rgba(28, 31, 40, 0.6);
+      --text-light: #f5f7fa;
+      --radius: 12px;
+      --transition: 0.3s ease;
+      --blur: 18px;
     }
 
-    [data-theme="dark"] {
-      --bg: #121212;
-      --text: #ffffff;
-      --card-bg: #1e1e1e;
-      --border: #333;
-    }
+    * { box-sizing: border-box; }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    header {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-light);
+      background: url("images/login-bg.jpg") no-repeat center/cover fixed, var(--bg-dark);
+      min-height: 100vh;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 1rem 2rem;
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border);
     }
 
-    .logo {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: var(--primary);
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
     }
 
-    .theme-toggle {
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 0.4rem 0.8rem;
-      cursor: pointer;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding: 1rem 2rem;
-      background: var(--card-bg);
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: auto;
-      padding: 2rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-      margin-bottom: 2rem;
-    }
-
-    h2, h3 {
-      color: var(--primary);
-    }
-
-    .responsive-table {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    table {
+    .login-card {
+      position: relative;
+      backdrop-filter: blur(var(--blur));
+      background: var(--glass-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
       width: 100%;
-      border-collapse: collapse;
-      min-width: 500px;
+      max-width: 420px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      animation: fadeIn 0.6s ease-out;
     }
 
-    th, td {
-      padding: 0.75rem;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-
-    footer {
+    .login-card h2 {
+      margin: 0 0 1.8rem;
+      font-size: 1.9rem;
       text-align: center;
-      padding: 1rem;
+      color: var(--accent);
+    }
+
+    .login-card h2 span {
+      color: var(--primary);
+    }
+
+    .form-group { margin-bottom: 1.4rem; position: relative; }
+
+    label {
+      display: block;
+      margin-bottom: 0.45rem;
+      font-weight: 600;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: border var(--transition), box-shadow var(--transition);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 6px rgba(78, 168, 255, 0.5);
+    }
+
+    .toggle-pass {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: #bbb;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-pass:hover { color: var(--accent); }
+
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    button:hover { background: #0b5ed7; }
+
+    .message {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    .redirect {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .redirect a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .redirect a:hover {
+      text-decoration: underline;
+    }
+
+    .forgot {
+      text-align: right;
       font-size: 0.9rem;
-      color: #888;
-      margin-top: 2rem;
+      margin-top: -1rem;
+      margin-bottom: 1.4rem;
     }
 
-    .mobile-toggle {
-      display: none;
+    .forgot a {
+      color: #aaa;
+      text-decoration: none;
     }
 
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-        flex-direction: column;
-      }
-      .mobile-toggle {
-        display: block;
-        font-size: 1.5rem;
-        margin-right: 1rem;
-        cursor: pointer;
-      }
-      .nav-open nav {
-        display: flex;
-      }
+    .forgot a:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 500px) {
+      .login-card { padding: 2rem 1.5rem; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">byteBANK</div>
-    <div style="display: flex; align-items: center; gap: 1rem;">
-      <button onclick="logoutUser()">Logout</button>
-      <button class="theme-toggle">🌙</button>
-    </div>
-  </header>
+  <div class="overlay"></div>
 
-  <nav>
-    <a href="dashboard.html"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
-    <a href="accounts.html"><i class="fa-solid fa-user"></i> Accounts</a>
-    <a href="transfers.html"><i class="fa-solid fa-money-bill-transfer"></i> Transfer</a>
-    <a href="cards.html"><i class="fa-solid fa-credit-card"></i> Cards</a>
-    <a href="loans.html"><i class="fa-solid fa-file-invoice"></i> Loans</a>
-    <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
-    <a href="services.html"><i class="fa-solid fa-toolbox"></i> Services</a>
-    <a href="transactions.html"><i class="fa-solid fa-right-left"></i> Transactions</a>
-  </nav>
+  <form id="login-form" class="login-card">
+    <h2>Welcome back to <span>byteBANK</span></h2>
 
-  <div class="container">
-    <h2 id="greeting">Welcome back!</h2>
-
-    <div class="card">
-      <p><strong>Account Balance:</strong> <span id="balance">₦0.00</span></p>
-      <p><strong>Last Login:</strong> June 21, 2025</p>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="you@example.com" required />
     </div>
 
-    <div class="card" id="transactions">
-      <h3>Recent Transactions</h3>
-      <div class="responsive-table">
-        <table>
-          <thead>
-            <tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr>
-          </thead>
-          <tbody id="txn-body">
-            <tr><td colspan="4">Loading...</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="••••••••" required />
+      <span class="toggle-pass" id="togglePass">👁️</span>
     </div>
-  </div>
 
-  <footer>&copy; 2025 byteBANK. All rights reserved.</footer>
+    <div class="forgot">
+      <a href="forgot-password.html">Forgot Password?</a>
+    </div>
+
+    <button type="submit">Login</button>
+
+    <p class="message" id="form-msg"></p>
+
+    <p class="redirect">
+      Don't have an account? <a href="registerpage.html">Create one here</a>
+    </p>
+  </form>
 
   <script>
-    const toggleBtn = document.querySelector('.theme-toggle');
-    toggleBtn.addEventListener('click', () => {
-      const root = document.documentElement;
-      const isDark = root.getAttribute('data-theme') === 'dark';
-      root.setAttribute('data-theme', isDark ? '' : 'dark');
-      toggleBtn.textContent = isDark ? '🌙' : '☀️';
-      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    const form = document.getElementById('login-form');
+    const togglePass = document.getElementById('togglePass');
+    const passwordInput = document.getElementById('password');
+    const msg = document.getElementById('form-msg');
+
+    togglePass.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePass.textContent = type === 'password' ? '👁️' : '🙈';
     });
 
-    function logoutUser() {
-      localStorage.removeItem("loggedInUser");
-      window.location.href = "newlogin.html";
-    }
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      msg.textContent = '';
 
-    window.addEventListener("DOMContentLoaded", () => {
-      if (localStorage.getItem("theme") === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
-        document.querySelector(".theme-toggle").textContent = "☀️";
-      }
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const password = passwordInput.value.trim();
 
-      const user = JSON.parse(localStorage.getItem("loggedInUser"));
-      if (!user) {
-        alert("Please login first.");
-        window.location.href = "newlogin.html";
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const matchedUser = users.find(u => u.email === email && u.password === password);
+
+      if (!matchedUser) {
+        msg.style.color = 'salmon';
+        msg.textContent = 'Invalid email or password.';
         return;
       }
 
-      document.getElementById("greeting").textContent = `Welcome back, ${user.firstname}!`;
-      document.getElementById("balance").textContent = user.balance ? `₦${Number(user.balance).toLocaleString()}` : "₦0.00";
+      // Save currently logged-in user
+      localStorage.setItem('loggedInUser', JSON.stringify(matchedUser));
 
-      const txns = JSON.parse(localStorage.getItem("transactions")) || [];
-      const recent = txns.slice(-5).reverse();
-      const tbody = document.getElementById("txn-body");
-
-      if (recent.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4">No recent transactions</td></tr>';
-      } else {
-        tbody.innerHTML = recent.map(txn => `
-          <tr>
-            <td>${txn.date || '—'}</td>
-            <td>${txn.description || txn.type}</td>
-            <td>${txn.amount}</td>
-            <td>${txn.status || 'Completed'}</td>
-          </tr>
-        `).join('');
-      }
+      msg.style.color = 'lightgreen';
+      msg.textContent = 'Login successful! Redirecting...';
+      setTimeout(() => window.location.href = 'dashboard.html', 1500);
     });
   </script>
 </body>
