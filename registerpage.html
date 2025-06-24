@@ -110,73 +110,68 @@
     <p class="redirect">Already have an account? <a href="newlogin.html">Log in</a></p>
   </form>
 
- <!-- Changes explained below -->
-<!-- Just replace your existing <script> section with this one -->
+  <script>
+    const form = document.getElementById('register-form');
+    const msg = document.getElementById('msg');
 
-<script>
-  const form = document.getElementById('register-form');
-  const msg = document.getElementById('msg');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      msg.textContent = '';
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    msg.textContent = '';
+      const password = document.getElementById('password').value.trim();
+      const confirm = document.getElementById('confirm').value.trim();
 
-    const password = document.getElementById('password').value.trim();
-    const confirm = document.getElementById('confirm').value.trim();
+      if (password !== confirm) {
+        msg.style.color = 'salmon';
+        msg.textContent = 'Passwords do not match.';
+        return;
+      }
 
-    if (password !== confirm) {
-      msg.style.color = 'salmon';
-      msg.textContent = 'Passwords do not match.';
-      return;
-    }
+      const user = {
+        surname: document.getElementById('surname').value.trim(),
+        firstname: document.getElementById('firstname').value.trim(),
+        middlename: document.getElementById('middlename').value.trim(),
+        email: document.getElementById('email').value.trim().toLowerCase(),
+        password,
+        dob: document.getElementById('dob').value,
+        gender: form.querySelector('input[name="gender"]:checked')?.value,
+        nationality: document.getElementById('nationality').value,
+        phone: document.getElementById('countryCode').value + document.getElementById('phone').value.trim(),
+        nin: document.getElementById('nin').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        balance: 0
+      };
 
-    const data = {
-      surname: document.getElementById('surname').value.trim(),
-      firstname: document.getElementById('firstname').value.trim(),
-      middlename: document.getElementById('middlename').value.trim(),
-      email: document.getElementById('email').value.trim().toLowerCase(),
-      password: password,
-      dob: document.getElementById('dob').value,
-      gender: form.querySelector('input[name="gender"]:checked')?.value,
-      nationality: document.getElementById('nationality').value,
-      phone: document.getElementById('countryCode').value + document.getElementById('phone').value.trim(),
-      nin: document.getElementById('nin').value.trim(),
-      address: document.getElementById('address').value.trim()
-    };
+      if (!/^[0-9]{11}$/.test(user.nin)) {
+        msg.style.color = 'salmon';
+        msg.textContent = 'NIN/BVN must be exactly 11 numeric digits.';
+        return;
+      }
 
-    if (!/^[0-9]{11}$/.test(data.nin)) {
-      msg.style.color = 'salmon';
-      msg.textContent = 'NIN/BVN must be exactly 11 numeric digits.';
-      return;
-    }
+      if (!document.getElementById('terms').checked) {
+        msg.style.color = 'salmon';
+        msg.textContent = 'You must agree to the Terms & Conditions.';
+        return;
+      }
 
-    if (!document.getElementById('terms').checked) {
-      msg.style.color = 'salmon';
-      msg.textContent = 'You must agree to the Terms & Conditions.';
-      return;
-    }
+      const users = JSON.parse(localStorage.getItem('users')) || [];
 
-    // Load existing users or initialize array
-    const users = JSON.parse(localStorage.getItem('users')) || [];
+      const duplicate = users.find(u => u.email === user.email || u.nin === user.nin);
+      if (duplicate) {
+        msg.style.color = 'salmon';
+        msg.textContent = 'Email or NIN already registered.';
+        return;
+      }
 
-    // Check for duplicate email or NIN
-    const duplicate = users.find(u => u.email === data.email || u.nin === data.nin);
-    if (duplicate) {
-      msg.style.color = 'salmon';
-      msg.textContent = 'Email or NIN already registered.';
-      return;
-    }
+      users.push(user);
+      localStorage.setItem('users', JSON.stringify(users));
+      msg.style.color = 'lightgreen';
+      msg.textContent = 'Registration successful! Redirecting...';
 
-    users.push(data);
-    localStorage.setItem('users', JSON.stringify(users));
-    msg.style.color = 'lightgreen';
-    msg.textContent = 'Registration successful! Redirecting...';
-
-    setTimeout(() => {
-      window.location.href = 'newlogin.html'; // Redirect to login page
-    }, 1500);
-  });
-</script>
-
+      setTimeout(() => {
+        window.location.href = 'newlogin.html';
+      }, 1500);
+    });
+  </script>
 </body>
 </html>
