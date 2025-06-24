@@ -2,74 +2,185 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Transactions | byteBANK</title>
-  <link rel="stylesheet" href="transactions.css" />
+  <style>
+    :root {
+      --primary: #0066ff;
+      --bg: #f5f7fa;
+      --text: #333;
+      --card-bg: #fff;
+      --border: #ddd;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --border: #333;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    .theme-toggle {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      margin-bottom: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--card-bg);
+      color: var(--text);
+    }
+    button {
+      padding: 0.4rem 0.8rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 2rem;
+    }
+    .receipt {
+      display: none;
+      background: white;
+      color: black;
+      padding: 2rem;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 1px solid #ccc;
+      width: 90%;
+      max-width: 400px;
+      z-index: 1000;
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    }
+    .receipt h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    .receipt p {
+      margin: 0.5rem 0;
+    }
+    .receipt button {
+      margin-top: 1rem;
+      background: #444;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>byteBANK</h1>
-    <button id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button> 
+    <div class="logo">byteBANK</div>
+    <button class="theme-toggle">🌙</button>
   </header>
 
-  <main>
-    <section class="transactions-section">
-      <h2>Transaction History</h2>
-
-      <div class="filters">
-        <label>
-          Search:
-          <input type="text" id="searchInput" placeholder="Search description or type" />
-        </label>
-
-        <label>
-          Type:
-          <select id="typeFilter">
-            <option value="all">All</option>
-            <option value="deposit">Deposit</option>
-            <option value="withdrawal">Withdrawal</option>
-            <option value="transfer">Transfer</option>
-            <option value="payment">Payment</option>
-          </select>
-        </label>
-
-        <label>
-          From:
-          <input type="date" id="startDate" />
-        </label>
-
-        <label>
-          To:
-          <input type="date" id="endDate" />
-        </label>
-      </div>
-
-      <table id="transactionTable">
+  <div class="container">
+    <h2>Transaction History</h2>
+    <div class="card">
+      <table>
         <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Amount</th>
-            <th>Balance</th>
-          </tr>
+          <tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th>Receipt</th></tr>
         </thead>
-        <tbody>
-          <!-- Transactions will be inserted here by JS -->
-        </tbody>
+        <tbody id="transactions-body"></tbody>
       </table>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Contact</a>
     </div>
-    <p>&copy; 2025 byteBANK. All rights reserved.</p>
-  </footer>
+  </div>
 
-  <script src="transactions.js"></script>
-  <script src="index.js"></script>
+  <div class="receipt" id="receipt"></div>
+
+  <footer>&copy; 2025 byteBANK. All rights reserved.</footer>
+
+  <script>
+    const themeToggle = document.querySelector('.theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      const root = document.documentElement;
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? '' : 'dark');
+      themeToggle.textContent = isDark ? '🌙' : '☀️';
+    });
+
+    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    const tbody = document.getElementById('transactions-body');
+
+    function renderTransactions() {
+      tbody.innerHTML = '';
+      transactions.forEach((tx, i) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${tx.date}</td>
+          <td>${tx.description}</td>
+          <td>${tx.amount}</td>
+          <td>${tx.status}</td>
+          <td><button onclick="showReceipt(${i})">🧾</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function showReceipt(index) {
+      const tx = transactions[index];
+      const receipt = document.getElementById('receipt');
+      receipt.innerHTML = `
+        <h3>Transaction Receipt</h3>
+        <p><strong>Date:</strong> ${tx.date}</p>
+        <p><strong>Description:</strong> ${tx.description}</p>
+        <p><strong>Amount:</strong> ${tx.amount}</p>
+        <p><strong>Status:</strong> ${tx.status}</p>
+        <button onclick="window.print()">Print</button>
+        <button onclick="document.getElementById('receipt').style.display='none'">Close</button>
+      `;
+      receipt.style.display = 'block';
+    }
+
+    window.addEventListener('DOMContentLoaded', renderTransactions);
+  </script>
 </body>
 </html>
