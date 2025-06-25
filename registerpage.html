@@ -50,9 +50,7 @@
       font-weight: 600;
       font-size: .95rem;
     }
-    .row {
-      margin-bottom: 1rem;
-    }
+    .row { margin-bottom: 1rem; }
     input, select {
       width: 100%;
       padding: .75rem 1rem;
@@ -98,9 +96,7 @@
       font-size: 1rem;
       cursor: pointer;
     }
-    button:hover {
-      background: #0284c7;
-    }
+    button:hover { background: #0284c7; }
     .msg {
       text-align: center;
       margin-top: .9rem;
@@ -115,9 +111,7 @@
       color: var(--accent);
       text-decoration: none;
     }
-    .redirect a:hover {
-      text-decoration: underline;
-    }
+    .redirect a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -170,14 +164,6 @@
     <div class="row"><label for="nin">NIN / BVN (11 digits)</label><input id="nin" maxlength="11" required></div>
     <div class="row"><label for="address">Residential Address</label><input id="address" required></div>
 
-    <div class="row"><label for="accountType">Account Type</label>
-      <select id="accountType" required>
-        <option value="">-- Select --</option>
-        <option value="Savings">Savings</option>
-        <option value="Current">Current</option>
-      </select>
-    </div>
-
     <div class="row inline">
       <input type="checkbox" id="terms" required>
       <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a></label>
@@ -205,10 +191,6 @@
         return;
       }
 
-      const generateAccountNumber = () => {
-        return Math.floor(1000000000 + Math.random() * 9000000000).toString(); // 10-digit number
-      };
-
       const data = {
         surname: document.getElementById('surname').value.trim(),
         firstname: document.getElementById('firstname').value.trim(),
@@ -220,15 +202,12 @@
         nationality: document.getElementById('nationality').value,
         phone: document.getElementById('countryCode').value + document.getElementById('phone').value.trim(),
         nin: document.getElementById('nin').value.trim(),
-        address: document.getElementById('address').value.trim(),
-        accountType: document.getElementById('accountType').value,
-        accountNumber: generateAccountNumber(),
-        balance: 0
+        address: document.getElementById('address').value.trim()
       };
 
       if (!/^[0-9]{11}$/.test(data.nin)) {
         msg.style.color = 'salmon';
-        msg.textContent = 'NIN/BVN must be exactly 11 numeric digits.';
+        msg.textContent = 'NIN/BVN must be exactly 11 digits.';
         return;
       }
 
@@ -239,8 +218,8 @@
       }
 
       const users = JSON.parse(localStorage.getItem('users')) || [];
-      const duplicate = users.find(u => u.email === data.email || u.nin === data.nin);
-      if (duplicate) {
+      const exists = users.find(user => user.email === data.email || user.nin === data.nin);
+      if (exists) {
         msg.style.color = 'salmon';
         msg.textContent = 'Email or NIN already registered.';
         return;
@@ -248,13 +227,12 @@
 
       users.push(data);
       localStorage.setItem('users', JSON.stringify(users));
-      localStorage.setItem('currentUser', JSON.stringify(data));
 
       msg.style.color = 'lightgreen';
-      msg.textContent = 'Registration successful! Logging in...';
+      msg.textContent = 'Registration successful! Redirecting...';
 
       setTimeout(() => {
-        window.location.href = 'dashboard.html';
+        window.location.href = 'newlogin.html';
       }, 1500);
     });
   </script>
