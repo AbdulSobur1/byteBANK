@@ -14,40 +14,110 @@
       --text:    #f1f5f9;
       --radius:  12px;
     }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;}
-    body{
-      min-height:100vh;display:flex;justify-content:center;align-items:center;color:var(--text);background:var(--bg-grad);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
-    form.card{
-      width:100%;max-width:530px;padding:2rem 2.2rem;border-radius:var(--radius);
-      background:var(--card-bg);backdrop-filter:blur(14px);
-      border:1px solid var(--border);box-shadow:0 8px 25px rgba(0,0,0,.55);
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text);
+      background: var(--bg-grad);
     }
-    h2{color:var(--accent);text-align:center;margin-bottom:1.6rem;font-size:1.9rem;}
-    label{display:block;margin-bottom:.35rem;font-weight:600;font-size:.95rem;}
-    .row{margin-bottom:1rem;}
-    input,select{
-      width:100%;padding:.75rem 1rem;border-radius:var(--radius);border:1px solid var(--border);
-      background:#1e293b;color:var(--text);font-size:.95rem;
+    form.card {
+      width: 100%;
+      max-width: 530px;
+      padding: 2rem 2.2rem;
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 25px rgba(0,0,0,.55);
     }
-    input:focus,select:focus{outline:none;border-color:var(--accent);}
+    h2 {
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 1.6rem;
+      font-size: 1.9rem;
+    }
+    label {
+      display: block;
+      margin-bottom: .35rem;
+      font-weight: 600;
+      font-size: .95rem;
+    }
+    .row {
+      margin-bottom: 1rem;
+    }
+    input, select {
+      width: 100%;
+      padding: .75rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: #1e293b;
+      color: var(--text);
+      font-size: .95rem;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
     input[type="checkbox"] {
       width: 16px;
       height: 16px;
       accent-color: var(--primary);
       vertical-align: middle;
     }
-    .inline{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;}
-    .inline label{font-weight:400;margin:0;display:flex;align-items:center;gap:.35rem;font-size:.9rem;}
-    button{
-      width:100%;padding:.9rem;margin-top:.8rem;border:none;border-radius:var(--radius);
-      background:var(--primary);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;
+    .inline {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      align-items: center;
     }
-    button:hover{background:#0284c7;}
-    .msg{text-align:center;margin-top:.9rem;font-size:.9rem;}
-    .redirect{text-align:center;margin-top:1.2rem;font-size:.9rem;}
-    .redirect a{color:var(--accent);text-decoration:none;}
-    .redirect a:hover{text-decoration:underline;}
+    .inline label {
+      font-weight: 400;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .9rem;
+    }
+    button {
+      width: 100%;
+      padding: .9rem;
+      margin-top: .8rem;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0284c7;
+    }
+    .msg {
+      text-align: center;
+      margin-top: .9rem;
+      font-size: .9rem;
+    }
+    .redirect {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: .9rem;
+    }
+    .redirect a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .redirect a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -100,6 +170,14 @@
     <div class="row"><label for="nin">NIN / BVN (11 digits)</label><input id="nin" maxlength="11" required></div>
     <div class="row"><label for="address">Residential Address</label><input id="address" required></div>
 
+    <div class="row"><label for="accountType">Account Type</label>
+      <select id="accountType" required>
+        <option value="">-- Select --</option>
+        <option value="Savings">Savings</option>
+        <option value="Current">Current</option>
+      </select>
+    </div>
+
     <div class="row inline">
       <input type="checkbox" id="terms" required>
       <label for="terms">I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a></label>
@@ -127,22 +205,28 @@
         return;
       }
 
-      const user = {
+      const generateAccountNumber = () => {
+        return Math.floor(1000000000 + Math.random() * 9000000000).toString(); // 10-digit number
+      };
+
+      const data = {
         surname: document.getElementById('surname').value.trim(),
         firstname: document.getElementById('firstname').value.trim(),
         middlename: document.getElementById('middlename').value.trim(),
         email: document.getElementById('email').value.trim().toLowerCase(),
-        password,
+        password: password,
         dob: document.getElementById('dob').value,
         gender: form.querySelector('input[name="gender"]:checked')?.value,
         nationality: document.getElementById('nationality').value,
         phone: document.getElementById('countryCode').value + document.getElementById('phone').value.trim(),
         nin: document.getElementById('nin').value.trim(),
         address: document.getElementById('address').value.trim(),
+        accountType: document.getElementById('accountType').value,
+        accountNumber: generateAccountNumber(),
         balance: 0
       };
 
-      if (!/^[0-9]{11}$/.test(user.nin)) {
+      if (!/^[0-9]{11}$/.test(data.nin)) {
         msg.style.color = 'salmon';
         msg.textContent = 'NIN/BVN must be exactly 11 numeric digits.';
         return;
@@ -155,21 +239,22 @@
       }
 
       const users = JSON.parse(localStorage.getItem('users')) || [];
-
-      const duplicate = users.find(u => u.email === user.email || u.nin === user.nin);
+      const duplicate = users.find(u => u.email === data.email || u.nin === data.nin);
       if (duplicate) {
         msg.style.color = 'salmon';
         msg.textContent = 'Email or NIN already registered.';
         return;
       }
 
-      users.push(user);
+      users.push(data);
       localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('currentUser', JSON.stringify(data));
+
       msg.style.color = 'lightgreen';
-      msg.textContent = 'Registration successful! Redirecting...';
+      msg.textContent = 'Registration successful! Logging in...';
 
       setTimeout(() => {
-        window.location.href = 'newlogin.html';
+        window.location.href = 'dashboard.html';
       }, 1500);
     });
   </script>
