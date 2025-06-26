@@ -1,205 +1,286 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Settings | byteBANK</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --primary: #0ea5e9;
-      --accent:  #38bdf8;
-      --bg: #f5f7fa;
-      --text: #1e293b;
-      --card-bg: #fff;
-      --border: #ddd;
-      --radius: 12px;
-    }[data-theme="dark"] {
-  --bg: #121212;
-  --text: #ffffff;
-  --card-bg: #1e1e1e;
-  --border: #333;
-}
+      --accent: #38bdf8;
+      --bg: #f3f4f6;
+      --text: #111827;
+      --card: #ffffff;
+      --border: #d1d5db;
+    }
 
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--text);
-  transition: 0.3s ease;
-}
+    [data-theme="dark"] {
+      --bg: #111827;
+      --text: #f3f4f6;
+      --card: #1f2937;
+      --border: #374151;
+    }
 
-header {
-  background: var(--card-bg);
-  padding: 1rem 2rem;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    * { box-sizing: border-box; }
 
-.logo { font-size: 1.4rem; color: var(--primary); font-weight: bold; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 4rem;
+    }
 
-.container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+    }
 
-h2 { color: var(--primary); margin-bottom: 1.5rem; }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
 
-.form-group {
-  margin-bottom: 1rem;
-}
+    .theme-toggle {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
 
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-}
+    h2 {
+      text-align: center;
+      margin: 1.5rem 0 0.8rem;
+    }
 
-input, select {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg);
-  color: var(--text);
-}
+    .container {
+      max-width: 720px;
+      margin: auto;
+      padding: 1rem;
+    }
 
-button {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: var(--radius);
-  background: var(--primary);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 1rem;
-}
+    .card {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
 
-.danger {
-  background: crimson;
-}
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
 
-.flex-between {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 2rem;
-}
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
 
+    input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      margin-top: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #0284c7;
+    }
+
+    .btn-danger {
+      background: crimson;
+    }
+
+    .btn-danger:hover {
+      background: darkred;
+    }
+
+    .flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .flex {
+        flex-direction: column;
+      }
+    }
+
+    .status {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
+
   <header>
     <div class="logo">byteBANK</div>
-    <button id="theme-toggle">🌙</button>
-  </header>  <div class="container">
-    <h2>Settings</h2>
-    <form id="settings-form">
-      <div class="form-group">
-        <label for="fullname">Full Name</label>
-        <input type="text" id="fullname" required />
-      </div><div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" id="email" required />
+    <button class="theme-toggle">🌙</button>
+  </header>
+
+  <h2>Settings</h2>
+
+  <div class="container">
+
+    <div class="card">
+      <h3>Update Profile</h3>
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Your email" disabled />
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" placeholder="Phone number" />
+
+      <label for="address">Address</label>
+      <input type="text" id="address" placeholder="Residential address" />
+
+      <button onclick="updateProfile()">Update</button>
+      <p class="status" id="profileStatus"></p>
+    </div>
+
+    <div class="card">
+      <h3>Change Password</h3>
+      <label for="oldPass">Old Password</label>
+      <input type="password" id="oldPass" />
+
+      <label for="newPass">New Password</label>
+      <input type="password" id="newPass" />
+
+      <label for="confirmPass">Confirm New Password</label>
+      <input type="password" id="confirmPass" />
+
+      <button onclick="changePassword()">Change Password</button>
+      <p class="status" id="passStatus"></p>
+    </div>
+
+    <div class="card flex">
+      <div>
+        <h3>Danger Zone</h3>
+        <button class="btn-danger" onclick="clearTransactions()">🧹 Clear Transactions</button>
+        <button class="btn-danger" onclick="logout()">🚪 Log Out</button>
+      </div>
+    </div>
+
   </div>
 
-  <div class="form-group">
-    <label for="phone">Phone</label>
-    <input type="text" id="phone" required />
-  </div>
+  <script>
+    const root = document.documentElement;
+    const toggleBtn = document.querySelector('.theme-toggle');
 
-  <div class="form-group">
-    <label for="address">Address</label>
-    <input type="text" id="address" required />
-  </div>
-
-  <div class="form-group">
-    <label for="new-password">New Password</label>
-    <input type="password" id="new-password" placeholder="Leave blank to keep current" />
-  </div>
-
-  <button type="submit">Save Changes</button>
-</form>
-
-<div class="flex-between">
-  <button class="danger" id="clear-transactions">Clear All Transactions</button>
-  <button class="danger" id="logout-btn">Logout</button>
-</div>
-
-  </div>  <script>
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.onclick = () => {
-      const root = document.documentElement;
+    toggleBtn.addEventListener('click', () => {
       const isDark = root.getAttribute('data-theme') === 'dark';
       root.setAttribute('data-theme', isDark ? '' : 'dark');
+      toggleBtn.textContent = isDark ? '🌙' : '☀️';
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
-      themeToggle.textContent = isDark ? '🌙' : '☀️';
-    };
+    });
 
-    window.addEventListener("DOMContentLoaded", () => {
-      if (localStorage.getItem("theme") === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
-        themeToggle.textContent = "☀️";
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('theme') === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        toggleBtn.textContent = '☀️';
       }
+      loadUser();
+    });
 
-      const user = JSON.parse(localStorage.getItem('currentUser'));
+    function loadUser() {
+      const current = JSON.parse(localStorage.getItem('currentUser'));
       const users = JSON.parse(localStorage.getItem('users')) || [];
 
-      if (!user) {
-        alert('Log in first');
-        location.href = 'newlogin.html';
+      if (!current) return;
+
+      const user = users.find(u => u.email === current.email);
+      if (!user) return;
+
+      document.getElementById('email').value = user.email || '';
+      document.getElementById('phone').value = user.phone || '';
+      document.getElementById('address').value = user.address || '';
+    }
+
+    function updateProfile() {
+      const current = JSON.parse(localStorage.getItem('currentUser'));
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+
+      const index = users.findIndex(u => u.email === current.email);
+      if (index === -1) return;
+
+      users[index].phone = phone;
+      users[index].address = address;
+      localStorage.setItem('users', JSON.stringify(users));
+      document.getElementById('profileStatus').textContent = 'Profile updated!';
+    }
+
+    function changePassword() {
+      const oldPass = document.getElementById('oldPass').value.trim();
+      const newPass = document.getElementById('newPass').value.trim();
+      const confirm = document.getElementById('confirmPass').value.trim();
+      const current = JSON.parse(localStorage.getItem('currentUser'));
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const index = users.findIndex(u => u.email === current.email);
+
+      const status = document.getElementById('passStatus');
+      status.textContent = '';
+
+      if (!oldPass || !newPass || !confirm) {
+        status.textContent = 'Please fill in all fields.';
         return;
       }
 
-      document.getElementById('fullname').value = `${user.firstname} ${user.surname}`;
-      document.getElementById('email').value = user.email;
-      document.getElementById('phone').value = user.phone;
-      document.getElementById('address').value = user.address;
-    });
-
-    document.getElementById('settings-form').addEventListener('submit', e => {
-      e.preventDefault();
-
-      const users = JSON.parse(localStorage.getItem('users')) || [];
-      let current = JSON.parse(localStorage.getItem('currentUser'));
-
-      const newName = document.getElementById('fullname').value.trim().split(" ");
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const address = document.getElementById('address').value.trim();
-      const newPass = document.getElementById('new-password').value.trim();
-
-      const index = users.findIndex(u => u.email === current.email);
-      if (index !== -1) {
-        users[index].firstname = newName[0];
-        users[index].surname = newName.slice(1).join(" ");
-        users[index].email = email;
-        users[index].phone = phone;
-        users[index].address = address;
-        if (newPass) users[index].password = newPass;
-        localStorage.setItem('users', JSON.stringify(users));
-        localStorage.setItem('currentUser', JSON.stringify(users[index]));
-        alert("Profile updated successfully");
-        location.reload();
+      if (users[index].password !== oldPass) {
+        status.textContent = 'Old password is incorrect.';
+        return;
       }
-    });
 
-    document.getElementById('clear-transactions').onclick = () => {
-      localStorage.removeItem('transactions');
-      alert("All transactions cleared.");
-    };
+      if (newPass !== confirm) {
+        status.textContent = 'Passwords do not match.';
+        return;
+      }
 
-    document.getElementById('logout-btn').onclick = () => {
+      users[index].password = newPass;
+      localStorage.setItem('users', JSON.stringify(users));
+      status.textContent = 'Password changed successfully.';
+    }
+
+    function clearTransactions() {
+      if (confirm('Are you sure you want to delete all transactions?')) {
+        localStorage.removeItem('transactions');
+        alert('All transactions cleared.');
+      }
+    }
+
+    function logout() {
       localStorage.removeItem('currentUser');
-      alert("You've been logged out.");
-      location.href = 'newlogin.html';
-    };
-  </script></body>
-</html>
+      window.location.href = 'newlogin.html';
+    }
+  </script>
+
+</body>
+  </html>
