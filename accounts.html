@@ -1,267 +1,248 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accounts | byteBANK</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --primary: #0ea5e9;
-      --accent: #38bdf8;
-      --bg: #f0f4f8;
-      --card: #fff;
-      --text: #1e293b;
-      --border: #ccc;
-      --radius: 10px;
-    }
+      --primary: #0066ff;
+      --bg: #f5f7fa;
+      --text: #333;
+      --card-bg: #fff;
+      --border: #ddd;
+    }[data-theme="dark"] {
+  --bg: #121212;
+  --text: #ffffff;
+  --card-bg: #1e1e1e;
+  --border: #333;
+}
 
-    body {
-      font-family: "Segoe UI", sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text);
-    }
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-    header {
-      background: var(--card);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-    }
+header {
+  padding: 1rem 2rem;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .logo {
-      font-weight: bold;
-      font-size: 1.5rem;
-      color: var(--primary);
-    }
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
 
-    .container {
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
+.theme-toggle {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    h2 {
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
+.container {
+  max-width: 960px;
+  margin: auto;
+  padding: 2rem;
+}
 
-    .account-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem 1.5rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
+.card {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border);
+}
 
-    .account-card p {
-      margin: 0.5rem 0;
-    }
+.card h3 {
+  margin-top: 0;
+  color: var(--primary);
+}
 
-    .actions {
-      margin-top: 1rem;
-    }
+.account {
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+}
 
-    button {
-      padding: 0.5rem 1rem;
-      border: none;
-      background: var(--primary);
-      color: #fff;
-      font-weight: bold;
-      border-radius: var(--radius);
-      margin-right: 0.5rem;
-      cursor: pointer;
-    }
+.account:last-child {
+  border-bottom: none;
+}
 
-    button:hover {
-      background: #0284c7;
-    }
+.actions button {
+  margin-right: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    .add-btn {
-      background: var(--accent);
-      margin-bottom: 1.5rem;
-    }
+.actions .deposit {
+  background-color: #28a745;
+  color: white;
+}
 
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
+.actions .withdraw {
+  background-color: #dc3545;
+  color: white;
+}
 
-    .modal-content {
-      background: var(--card);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    }
+@media (max-width: 600px) {
+  .card {
+    padding: 1rem 0.75rem;
+  }
+}
 
-    .modal-content h3 {
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
+/* Receipt Styles */
+#receipt-container {
+  display: none;
+}
 
-    .modal-content input, .modal-content select {
-      width: 100%;
-      padding: 0.6rem;
-      margin-bottom: 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-    }
+#receipt {
+  background: white;
+  color: black;
+  padding: 20px;
+  width: 320px;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.4);
+  font-family: 'Courier New', monospace;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  z-index: 9999;
+  animation: fadeInZoom 0.3s ease-out forwards;
+}
 
-    .modal-content .close {
-      float: right;
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: #888;
-    }
+@keyframes fadeInZoom {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
 
-    .modal-content .close:hover {
-      color: #000;
-    }
+@media print {
+  body *:not(#receipt):not(#receipt *) {
+    visibility: hidden;
+  }
+  #receipt, #receipt * {
+    visibility: visible;
+    position: static;
+  }
+  #receipt {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}
+
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo">byteBANK</div>
-    <div id="user-name"></div>
-  </header>
-
-  <div class="container">
-    <button class="add-btn" onclick="openModal()">+ Add New Account</button>
-
-    <div id="accounts-list"></div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="accountModal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h3>Create New Account</h3>
-      <form id="account-form">
-        <input type="text" id="accountName" placeholder="Account Name" required />
-        <select id="accountType" required>
-          <option value="">Select Type</option>
-          <option value="Savings">Savings</option>
-          <option value="Current">Current</option>
-        </select>
-        <input type="number" id="initialBalance" placeholder="Initial Balance" required />
-        <button type="submit">Create Account</button>
-      </form>
+    <button class="theme-toggle">🌙</button>
+  </header>  <div class="container">
+    <div class="card">
+      <h3>Your Accounts</h3>
+      <div id="accounts-list"></div>
     </div>
-  </div>
-
-  <script>
-    const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    const accounts = JSON.parse(localStorage.getItem("accounts")) || [];
-
-    const accountsList = document.getElementById("accounts-list");
-    const accountModal = document.getElementById("accountModal");
-    const userNameEl = document.getElementById("user-name");
-
-    if (!currentUser) {
-      alert("You must be logged in");
-      window.location.href = "newlogin.html";
-    }
-
-    userNameEl.textContent = `${currentUser.firstname} ${currentUser.surname}`;
-
-    function openModal() {
-      accountModal.style.display = "flex";
-    }
-
-    function closeModal() {
-      accountModal.style.display = "none";
-    }
-
-    function renderAccounts() {
-      accountsList.innerHTML = "";
-      const userAccounts = accounts.filter(acc => acc.userEmail === currentUser.email);
-      if (userAccounts.length === 0) {
-        accountsList.innerHTML = "<p>No accounts found.</p>";
-        return;
-      }
-
-      userAccounts.forEach((acc, i) => {
-        const div = document.createElement("div");
-        div.className = "account-card";
-        div.innerHTML = `
-          <p><strong>Name:</strong> ${acc.name}</p>
-          <p><strong>Type:</strong> ${acc.type}</p>
-          <p><strong>Number:</strong> ${acc.number}</p>
-          <p><strong>Balance:</strong> ₦${acc.balance.toLocaleString()}</p>
-          <div class="actions">
-            <button onclick="deposit(${i})">Deposit</button>
-            <button onclick="withdraw(${i})">Withdraw</button>
-          </div>
-        `;
-        accountsList.appendChild(div);
-      });
-    }
-
-    function generateAccountNumber() {
-      return Math.floor(1000000000 + Math.random() * 9000000000).toString();
-    }
-
-    document.getElementById("account-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const name = document.getElementById("accountName").value.trim();
-      const type = document.getElementById("accountType").value;
-      const balance = parseFloat(document.getElementById("initialBalance").value);
-
-      const newAccount = {
-        userEmail: currentUser.email,
-        name,
-        type,
-        number: generateAccountNumber(),
-        balance
-      };
-
-      accounts.push(newAccount);
-      localStorage.setItem("accounts", JSON.stringify(accounts));
-      closeModal();
-      renderAccounts();
-      e.target.reset();
+  </div>  <div id="receipt-container">
+    <div id="receipt">
+      <h3 style="text-align:center;">byteBANK Receipt</h3>
+      <div id="receipt-details"></div>
+      <button onclick="window.print()">🖨️ Print Receipt</button>
+      <button onclick="document.getElementById('receipt-container').style.display='none'">✖ Close</button>
+    </div>
+  </div>  <script>
+    const toggleBtn = document.querySelector('.theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      const root = document.documentElement;
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? '' : 'dark');
+      toggleBtn.textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
     });
 
-    function deposit(index) {
-      const userAccounts = accounts.filter(acc => acc.userEmail === currentUser.email);
-      const amount = parseFloat(prompt("Enter amount to deposit:"));
-      if (!isNaN(amount) && amount > 0) {
-        const realIndex = accounts.findIndex(acc => acc.userEmail === currentUser.email && acc.number === userAccounts[index].number);
-        accounts[realIndex].balance += amount;
-        localStorage.setItem("accounts", JSON.stringify(accounts));
-        renderAccounts();
+    window.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        document.querySelector(".theme-toggle").textContent = "☀️";
       }
+      loadAccounts();
+    });
+
+    function loadAccounts() {
+      const list = document.getElementById('accounts-list');
+      const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+      list.innerHTML = accounts.map((acc, i) => `
+        <div class="account">
+          <p><strong>Account #:</strong> ${acc.number}</p>
+          <p><strong>Balance:</strong> ₦${parseFloat(acc.balance || 0).toLocaleString()}</p>
+          <div class="actions">
+            <button class="deposit" onclick="deposit(${i})">Deposit</button>
+            <button class="withdraw" onclick="withdraw(${i})">Withdraw</button>
+          </div>
+        </div>
+      `).join('');
     }
 
-    function withdraw(index) {
-      const userAccounts = accounts.filter(acc => acc.userEmail === currentUser.email);
-      const amount = parseFloat(prompt("Enter amount to withdraw:"));
-      if (!isNaN(amount) && amount > 0 && amount <= userAccounts[index].balance) {
-        const realIndex = accounts.findIndex(acc => acc.userEmail === currentUser.email && acc.number === userAccounts[index].number);
-        accounts[realIndex].balance -= amount;
-        localStorage.setItem("accounts", JSON.stringify(accounts));
-        renderAccounts();
-      } else {
-        alert("Invalid amount or insufficient funds.");
-      }
+    function showReceipt(txn) {
+      document.getElementById('receipt-details').innerHTML = `
+        <strong>Date:</strong> ${txn.date}<br>
+        <strong>Account:</strong> ${txn.account}<br>
+        <strong>Type:</strong> ${txn.type}<br>
+        <strong>Amount:</strong> ₦${parseFloat(txn.amount).toLocaleString()}<br>
+        <strong>Status:</strong> ${txn.status}
+      `;
+      document.getElementById('receipt-container').style.display = 'block';
     }
 
-    renderAccounts();
-  </script>
-</body>
+    function deposit(i) {
+      const amount = parseFloat(prompt("Enter deposit amount"));
+      if (isNaN(amount) || amount <= 0) return alert("Invalid amount");
+      const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+      accounts[i].balance = parseFloat(accounts[i].balance || 0) + amount;
+      localStorage.setItem('accounts', JSON.stringify(accounts));
+      const txn = {
+        type: "Deposit",
+        account: accounts[i].number,
+        amount,
+        date: new Date().toLocaleString(),
+        status: "Success"
+      };
+      const txns = JSON.parse(localStorage.getItem('transactions') || "[]");
+      txns.push(txn);
+      localStorage.setItem('transactions', JSON.stringify(txns));
+      showReceipt(txn);
+      loadAccounts();
+    }
+
+    function withdraw(i) {
+      const amount = parseFloat(prompt("Enter withdrawal amount"));
+      if (isNaN(amount) || amount <= 0) return alert("Invalid amount");
+      const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+      if (amount > parseFloat(accounts[i].balance || 0)) return alert("Insufficient funds!");
+      accounts[i].balance = parseFloat(accounts[i].balance || 0) - amount;
+      localStorage.setItem('accounts', JSON.stringify(accounts));
+      const txn = {
+        type: "Withdraw",
+        account: accounts[i].number,
+        amount,
+        date: new Date().toLocaleString(),
+        status: "Success"
+      };
+      const txns = JSON.parse(localStorage.getItem('transactions') || "[]");
+      txns.push(txn);
+      localStorage.setItem('transactions', JSON.stringify(txns));
+      showReceipt(txn);
+      loadAccounts();
+    }
+  </script></body>
 </html>
