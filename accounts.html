@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Accounts | byteBANK</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     :root {
       --primary: #0066ff;
@@ -11,238 +12,316 @@
       --text: #333;
       --card-bg: #fff;
       --border: #ddd;
-    }[data-theme="dark"] {
-  --bg: #121212;
-  --text: #ffffff;
-  --card-bg: #1e1e1e;
-  --border: #333;
-}
+    }
 
-body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #fff;
+      --card-bg: #1e1e1e;
+      --border: #333;
+    }
 
-header {
-  padding: 1rem 2rem;
-  background: var(--card-bg);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--primary);
-}
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+    }
 
-.theme-toggle {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-}
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
 
-.container {
-  max-width: 960px;
-  margin: auto;
-  padding: 2rem;
-}
+    .theme-toggle {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+    }
 
-.card {
-  background: var(--card-bg);
-  padding: 1rem;
-  border-radius: 10px;
-  margin-bottom: 2rem;
-  border: 1px solid var(--border);
-}
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+    }
 
-.card h3 {
-  margin-top: 0;
-  color: var(--primary);
-}
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+    }
 
-.account {
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
-}
+    nav a:hover {
+      color: var(--primary);
+    }
 
-.account:last-child {
-  border-bottom: none;
-}
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem;
+    }
 
-.actions button {
-  margin-right: 10px;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
 
-.actions .deposit {
-  background-color: #28a745;
-  color: white;
-}
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
 
-.actions .withdraw {
-  background-color: #dc3545;
-  color: white;
-}
+    .account-actions button {
+      margin-right: 0.5rem;
+    }
 
-@media (max-width: 600px) {
-  .card {
-    padding: 1rem 0.75rem;
-  }
-}
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
 
-/* Receipt Styles */
-#receipt-container {
-  display: none;
-}
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: #0051cc; }
+    .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: white; }
 
-#receipt {
-  background: white;
-  color: black;
-  padding: 20px;
-  width: 320px;
-  border-radius: 10px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.4);
-  font-family: 'Courier New', monospace;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
-  z-index: 9999;
-  animation: fadeInZoom 0.3s ease-out forwards;
-}
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 2rem;
+    }
 
-@keyframes fadeInZoom {
-  from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+    }
 
-@media print {
-  body *:not(#receipt):not(#receipt *) {
-    visibility: hidden;
-  }
-  #receipt, #receipt * {
-    visibility: visible;
-    position: static;
-  }
-  #receipt {
-    box-shadow: none !important;
-    transform: none !important;
-  }
-}
+    .modal.active {
+      display: flex;
+    }
 
+    .modal-content {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .modal-content input, .modal-content select {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.7rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+    }
+
+    .modal-content button {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+      }
+
+      .card {
+        padding: 1rem;
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
+
   <header>
     <div class="logo">byteBANK</div>
-    <button class="theme-toggle">🌙</button>
-  </header>  <div class="container">
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </header>
+
+  <nav>
+    <a href="dashboard.html"><i class="fa-solid fa-chart-bar"></i> Dashboard</a>
+    <a href="accounts.html"><i class="fa-solid fa-user"></i> Accounts</a>
+    <a href="transfers.html"><i class="fa-solid fa-money-bill-transfer"></i> Transfer</a>
+    <a href="cards.html"><i class="fa-solid fa-credit-card"></i> Cards</a>
+    <a href="loans.html"><i class="fa-solid fa-file-invoice"></i> Loan</a>
+    <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+    <a href="services.html"><i class="fa-solid fa-toolbox"></i> Services</a>
+    <a href="transactions.html"><i class="fa-solid fa-right-left"></i> Transactions</a>
+  </nav>
+
+  <div class="container">
     <div class="card">
-      <h3>Your Accounts</h3>
-      <div id="accounts-list"></div>
+      <h3>Account Overview</h3>
+      <p><strong>Full Name:</strong> <span id="name">-</span></p>
+      <p><strong>Email:</strong> <span id="email">-</span></p>
+      <p><strong>Phone:</strong> <span id="phone">-</span></p>
     </div>
-  </div>  <div id="receipt-container">
-    <div id="receipt">
-      <h3 style="text-align:center;">byteBANK Receipt</h3>
-      <div id="receipt-details"></div>
-      <button onclick="window.print()">🖨️ Print Receipt</button>
-      <button onclick="document.getElementById('receipt-container').style.display='none'">✖ Close</button>
+
+    <div class="card">
+      <h3>Manage Accounts</h3>
+      <button class="btn btn-primary" onclick="openModal()">➕ Add New Account</button>
+      <div id="accounts-list" style="margin-top: 1.2rem;"></div>
     </div>
-  </div>  <script>
-    const toggleBtn = document.querySelector('.theme-toggle');
-    toggleBtn.addEventListener('click', () => {
+  </div>
+
+  <div class="modal" id="accountModal">
+    <div class="modal-content">
+      <h3 style="margin-top:0;">Add New Account</h3>
+      <input type="text" id="bank" placeholder="Bank Name" required />
+      <input type="text" id="accountNumber" placeholder="Account Number" maxlength="10" required />
+      <input type="text" id="accountType" placeholder="Account Type" required />
+      <button class="btn btn-primary" onclick="addAccount()">Add Account</button>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 byteBANK. All rights reserved.</footer>
+
+  <script>
+    // THEME
+    function toggleTheme() {
       const root = document.documentElement;
-      const isDark = root.getAttribute('data-theme') === 'dark';
-      root.setAttribute('data-theme', isDark ? '' : 'dark');
-      toggleBtn.textContent = isDark ? '🌙' : '☀️';
-      localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    });
+      const isDark = root.getAttribute("data-theme") === "dark";
+      root.setAttribute("data-theme", isDark ? "" : "dark");
+      localStorage.setItem("theme", isDark ? "light" : "dark");
+      document.querySelector(".theme-toggle").textContent = isDark ? "🌙" : "☀️";
+    }
 
     window.addEventListener("DOMContentLoaded", () => {
       if (localStorage.getItem("theme") === "dark") {
         document.documentElement.setAttribute("data-theme", "dark");
         document.querySelector(".theme-toggle").textContent = "☀️";
       }
-      loadAccounts();
+
+      // Load user info
+      const user = JSON.parse(localStorage.getItem("currentUser"));
+      if (user) {
+        document.getElementById("name").textContent = `${user.firstname} ${user.middlename || ""} ${user.surname}`.trim();
+        document.getElementById("email").textContent = user.email;
+        document.getElementById("phone").textContent = user.phone;
+      }
+
+      renderAccounts();
     });
 
-    function loadAccounts() {
-      const list = document.getElementById('accounts-list');
-      const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
-      list.innerHTML = accounts.map((acc, i) => `
-        <div class="account">
-          <p><strong>Account #:</strong> ${acc.number}</p>
-          <p><strong>Balance:</strong> ₦${parseFloat(acc.balance || 0).toLocaleString()}</p>
-          <div class="actions">
-            <button class="deposit" onclick="deposit(${i})">Deposit</button>
-            <button class="withdraw" onclick="withdraw(${i})">Withdraw</button>
+    // ACCOUNT MANAGEMENT
+    function openModal() {
+      document.getElementById("accountModal").classList.add("active");
+    }
+
+    window.addEventListener("click", (e) => {
+      if (e.target.classList.contains("modal")) {
+        document.getElementById("accountModal").classList.remove("active");
+      }
+    });
+
+    function addAccount() {
+      const bank = document.getElementById("bank").value.trim();
+      const number = document.getElementById("accountNumber").value.trim();
+      const type = document.getElementById("accountType").value.trim();
+
+      if (!bank || !number || !type) return alert("Please fill all fields");
+
+      const account = { bank, number, type, balance: 0 };
+      const key = "accounts_" + JSON.parse(localStorage.getItem("currentUser")).email;
+      const accounts = JSON.parse(localStorage.getItem(key)) || [];
+      accounts.push(account);
+      localStorage.setItem(key, JSON.stringify(accounts));
+
+      document.getElementById("accountModal").classList.remove("active");
+      renderAccounts();
+    }
+
+    function renderAccounts() {
+      const key = "accounts_" + JSON.parse(localStorage.getItem("currentUser")).email;
+      const accounts = JSON.parse(localStorage.getItem(key)) || [];
+      const list = document.getElementById("accounts-list");
+      list.innerHTML = "";
+
+      if (accounts.length === 0) {
+        list.innerHTML = "<p>No accounts added yet.</p>";
+        return;
+      }
+
+      accounts.forEach((acc, index) => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          <p><strong>Bank:</strong> ${acc.bank}</p>
+          <p><strong>Account Number:</strong> ${acc.number}</p>
+          <p><strong>Type:</strong> ${acc.type}</p>
+          <p><strong>Balance:</strong> ₦${acc.balance.toLocaleString()}</p>
+          <div class="account-actions">
+            <button class="btn btn-outline" onclick="deposit(${index})">Deposit</button>
+            <button class="btn btn-outline" onclick="withdraw(${index})">Withdraw</button>
           </div>
-        </div>
-      `).join('');
+        `;
+        list.appendChild(div);
+      });
     }
 
-    function showReceipt(txn) {
-      document.getElementById('receipt-details').innerHTML = `
-        <strong>Date:</strong> ${txn.date}<br>
-        <strong>Account:</strong> ${txn.account}<br>
-        <strong>Type:</strong> ${txn.type}<br>
-        <strong>Amount:</strong> ₦${parseFloat(txn.amount).toLocaleString()}<br>
-        <strong>Status:</strong> ${txn.status}
-      `;
-      document.getElementById('receipt-container').style.display = 'block';
-    }
-
-    function deposit(i) {
+    function deposit(index) {
+      const key = "accounts_" + JSON.parse(localStorage.getItem("currentUser")).email;
+      const accounts = JSON.parse(localStorage.getItem(key)) || [];
       const amount = parseFloat(prompt("Enter deposit amount"));
-      if (isNaN(amount) || amount <= 0) return alert("Invalid amount");
-      const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
-      accounts[i].balance = parseFloat(accounts[i].balance || 0) + amount;
-      localStorage.setItem('accounts', JSON.stringify(accounts));
-      const txn = {
-        type: "Deposit",
-        account: accounts[i].number,
-        amount,
-        date: new Date().toLocaleString(),
-        status: "Success"
-      };
-      const txns = JSON.parse(localStorage.getItem('transactions') || "[]");
-      txns.push(txn);
-      localStorage.setItem('transactions', JSON.stringify(txns));
-      showReceipt(txn);
-      loadAccounts();
+      if (!isNaN(amount) && amount > 0) {
+        accounts[index].balance += amount;
+        localStorage.setItem(key, JSON.stringify(accounts));
+        renderAccounts();
+      }
     }
 
-    function withdraw(i) {
+    function withdraw(index) {
+      const key = "accounts_" + JSON.parse(localStorage.getItem("currentUser")).email;
+      const accounts = JSON.parse(localStorage.getItem(key)) || [];
       const amount = parseFloat(prompt("Enter withdrawal amount"));
-      if (isNaN(amount) || amount <= 0) return alert("Invalid amount");
-      const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
-      if (amount > parseFloat(accounts[i].balance || 0)) return alert("Insufficient funds!");
-      accounts[i].balance = parseFloat(accounts[i].balance || 0) - amount;
-      localStorage.setItem('accounts', JSON.stringify(accounts));
-      const txn = {
-        type: "Withdraw",
-        account: accounts[i].number,
-        amount,
-        date: new Date().toLocaleString(),
-        status: "Success"
-      };
-      const txns = JSON.parse(localStorage.getItem('transactions') || "[]");
-      txns.push(txn);
-      localStorage.setItem('transactions', JSON.stringify(txns));
-      showReceipt(txn);
-      loadAccounts();
+      if (!isNaN(amount) && amount > 0 && amount <= accounts[index].balance) {
+        accounts[index].balance -= amount;
+        localStorage.setItem(key, JSON.stringify(accounts));
+        renderAccounts();
+      } else {
+        alert("Invalid or insufficient amount");
+      }
     }
-  </script></body>
-</html>
+  </script>
+</body>
+  </html>
