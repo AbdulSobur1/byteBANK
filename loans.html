@@ -2,225 +2,294 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Loans | byteBANK</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --primary: #0ea5e9;
-      --accent: #38bdf8;
-      --bg: #f1f5f9;
-      --text: #1e293b;
-      --card-bg: #ffffff;
-      --border: #d1d5db;
-      --radius: 12px;
+      --primary: #0066ff;
+      --bg: #f5f7fa;
+      --text: #333;
+      --card-bg: #fff;
+      --border: #ddd;
+    }
+
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #f0f0f0;
+      --card-bg: #1e1e1e;
+      --border: #333;
     }
 
     body {
-      margin: 0;
       font-family: 'Segoe UI', sans-serif;
+      margin: 0;
       background: var(--bg);
       color: var(--text);
     }
 
     header {
-      background: var(--card-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 1rem 2rem;
+      background: var(--card-bg);
       border-bottom: 1px solid var(--border);
-      font-size: 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.4rem;
       font-weight: bold;
       color: var(--primary);
     }
 
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    h2 {
-      margin-top: 0;
-      color: var(--primary);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      padding: 0.8rem;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-    }
-
-    .btn {
+    .theme-toggle {
+      font-size: 1.2rem;
+      padding: 0.3rem 0.5rem;
       background: var(--primary);
       color: white;
       border: none;
-      padding: 0.7rem 1.2rem;
-      border-radius: var(--radius);
+      border-radius: 6px;
       cursor: pointer;
     }
 
-    .btn:hover {
-      background: #0284c7;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background: white;
+    .container {
+      max-width: 900px;
+      margin: auto;
       padding: 2rem;
-      border-radius: var(--radius);
-      max-width: 500px;
-      width: 100%;
     }
 
-    .modal-content h3 {
+    h2 {
+      color: var(--primary);
       margin-top: 0;
+    }
+
+    form {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    textarea { resize: vertical; }
+
+    button {
+      background: var(--primary);
+      color: white;
+      padding: 0.9rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .loan-list {
+      margin-top: 2rem;
+    }
+
+    .loan-card {
+      background: var(--card-bg);
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .loan-card h4 {
+      margin: 0;
       color: var(--primary);
     }
 
-    .modal-content input, select, textarea {
-      width: 100%;
-      padding: 0.7rem;
-      margin-bottom: 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+    .loan-card p {
+      margin: 0.3rem 0;
     }
 
-    .close-btn {
-      float: right;
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: #aaa;
+    .loan-card .actions {
+      margin-top: 0.5rem;
     }
 
-    .close-btn:hover {
-      color: #000;
+    .loan-card button {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+      margin-right: 0.5rem;
+      border-radius: 5px;
+    }
+
+    .delete-btn {
+      background: crimson;
+    }
+
+    .reminder {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: darkorange;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 1rem; }
     }
   </style>
 </head>
 <body>
-  <header>byteBANK Loans</header>
+
+  <header>
+    <div class="logo">byteBANK</div>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </header>
 
   <div class="container">
-    <div class="card">
-      <h2>My Loan Applications</h2>
-      <button class="btn" onclick="openModal()">Apply for New Loan</button>
-      <div style="margin-top: 1.5rem; overflow-x: auto">
-        <table id="loanTable">
-          <thead>
-            <tr><th>Type</th><th>Amount</th><th>Duration</th><th>Status</th><th>Monthly</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+    <h2>Apply for a Loan</h2>
 
-  <!-- Modal -->
-  <div class="modal" id="loanModal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <h3>New Loan Request</h3>
-      <input type="number" id="loanAmount" placeholder="Loan Amount (₦)" required>
-      <select id="loanType">
-        <option value="">Select Loan Type</option>
-        <option value="Personal">Personal</option>
-        <option value="Car">Car</option>
-        <option value="Mortgage">Mortgage</option>
-        <option value="Education">Education</option>
-      </select>
-      <input type="number" id="loanDuration" placeholder="Repayment Duration (months)" required>
-      <textarea id="loanReason" placeholder="Purpose of Loan" rows="3"></textarea>
-      <button class="btn" onclick="submitLoan()">Submit Request</button>
+    <form id="loan-form">
+      <div class="form-group">
+        <label for="loanType">Loan Type</label>
+        <select id="loanType" required>
+          <option value="">-- Select --</option>
+          <option>Personal Loan</option>
+          <option>Business Loan</option>
+          <option>Education Loan</option>
+          <option>Mortgage</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="loanAmount">Amount (₦)</label>
+        <input type="number" id="loanAmount" min="1000" required />
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Duration (months)</label>
+        <input type="number" id="duration" min="1" required />
+      </div>
+
+      <div class="form-group">
+        <label for="purpose">Purpose</label>
+        <textarea id="purpose" rows="3" required></textarea>
+      </div>
+
+      <button type="submit">Submit Loan Request</button>
+    </form>
+
+    <div class="loan-list" id="loanList">
+      <h3>Loan Requests</h3>
+      <!-- Loans will appear here -->
     </div>
   </div>
 
   <script>
-    const modal = document.getElementById('loanModal');
-    const loanTable = document.querySelector('#loanTable tbody');
+    const form = document.getElementById('loan-form');
+    const loanList = document.getElementById('loanList');
 
-    function openModal() {
-      modal.style.display = 'flex';
+    function toggleTheme() {
+      const root = document.documentElement;
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? '' : 'dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      document.querySelector('.theme-toggle').textContent = isDark ? '🌙' : '☀️';
     }
 
-    function closeModal() {
-      modal.style.display = 'none';
-    }
-
-    window.onclick = function(e) {
-      if (e.target === modal) closeModal();
-    }
-
-    function submitLoan() {
-      const amount = parseFloat(document.getElementById('loanAmount').value);
-      const type = document.getElementById('loanType').value;
-      const duration = parseInt(document.getElementById('loanDuration').value);
-      const reason = document.getElementById('loanReason').value;
-
-      if (!amount || !type || !duration || !reason) return alert("Fill all fields");
-
-      const interestRate = 0.1; // 10%
-      const monthlyPayment = ((amount + amount * interestRate) / duration).toFixed(2);
-
-      const loan = {
-        type,
-        amount,
-        duration,
-        status: 'Pending',
-        monthly: monthlyPayment,
-        reason
-      };
-
-      const user = JSON.parse(localStorage.getItem('loggedInUser'));
-      if (!user) return alert("Please log in first");
-
-      const allLoans = JSON.parse(localStorage.getItem('loans') || '{}');
-      allLoans[user.email] = allLoans[user.email] || [];
-      allLoans[user.email].push(loan);
-      localStorage.setItem('loans', JSON.stringify(allLoans));
+    window.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        document.querySelector(".theme-toggle").textContent = "☀️";
+      }
 
       renderLoans();
-      closeModal();
-    }
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const loan = {
+        id: Date.now(),
+        type: document.getElementById("loanType").value,
+        amount: parseFloat(document.getElementById("loanAmount").value),
+        duration: document.getElementById("duration").value,
+        purpose: document.getElementById("purpose").value,
+        date: new Date().toLocaleDateString(),
+        dueDate: getDueDate(document.getElementById("duration").value),
+        status: Math.random() < 0.6 ? "Approved" : "Pending",
+        daysRemaining: document.getElementById("duration").value * 30,
+      };
+
+      const loans = JSON.parse(localStorage.getItem("loans")) || [];
+      loans.unshift(loan);
+      localStorage.setItem("loans", JSON.stringify(loans));
+
+      const notifications = JSON.parse(localStorage.getItem("notifications")) || [];
+      notifications.unshift({
+        title: "Loan Request",
+        message: `Your loan of ₦${loan.amount.toLocaleString()} has been ${loan.status.toLowerCase()}.`,
+        time: new Date().toLocaleTimeString(),
+      });
+      localStorage.setItem("notifications", JSON.stringify(notifications));
+
+      form.reset();
+      renderLoans();
+    });
 
     function renderLoans() {
-      const user = JSON.parse(localStorage.getItem('loggedInUser'));
-      const allLoans = JSON.parse(localStorage.getItem('loans') || '{}');
-      const loans = allLoans[user?.email] || [];
-      loanTable.innerHTML = '';
-      loans.forEach(l => {
-        loanTable.innerHTML += `<tr><td>${l.type}</td><td>₦${l.amount}</td><td>${l.duration} mo</td><td>${l.status}</td><td>₦${l.monthly}</td></tr>`;
+      const loans = JSON.parse(localStorage.getItem("loans")) || [];
+      loanList.innerHTML = "<h3>Loan Requests</h3>";
+
+      if (loans.length === 0) {
+        loanList.innerHTML += "<p>No loan applications yet.</p>";
+        return;
+      }
+
+      loans.forEach(loan => {
+        const isApproved = loan.status === "Approved";
+        loanList.innerHTML += `
+          <div class="loan-card">
+            <h4>${loan.type}</h4>
+            <p><strong>Amount:</strong> ₦${loan.amount.toLocaleString()}</p>
+            <p><strong>Duration:</strong> ${loan.duration} months</p>
+            <p><strong>Date:</strong> ${loan.date}</p>
+            <p><strong>Status:</strong> <span style="color:${isApproved ? 'green' : 'orange'}">${loan.status}</span></p>
+            <p><strong>Purpose:</strong> ${loan.purpose}</p>
+            ${isApproved ? `<p class="reminder">Repayment due: ${loan.dueDate}</p>` : ''}
+            <div class="actions">
+              <button class="delete-btn" onclick="deleteLoan(${loan.id})">Delete</button>
+            </div>
+          </div>
+        `;
       });
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      if (!localStorage.getItem('loggedInUser')) {
-        alert("Please log in first");
-        window.location.href = 'newlogin.html';
-        return;
-      }
+    function getDueDate(months) {
+      const due = new Date();
+      due.setMonth(due.getMonth() + parseInt(months));
+      return due.toLocaleDateString();
+    }
+
+    function deleteLoan(id) {
+      const loans = JSON.parse(localStorage.getItem("loans")) || [];
+      const filtered = loans.filter(loan => loan.id !== id);
+      localStorage.setItem("loans", JSON.stringify(filtered));
       renderLoans();
-    });
+    }
   </script>
+
 </body>
-</html>
+          </html>
