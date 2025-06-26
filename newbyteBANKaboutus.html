@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="ByteBank About Us - Built with clean design and dynamic interactions.">
+  <title>About Us - ByteBank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --card-bg: #f9f9f9;
+      --accent-color: #004aad;
+    }
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --card-bg: #1e1e1e;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    header {
+      background-color: var(--accent-color);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toggle-btn {
+      position: fixed;
+      top: 0rem;
+      right: 1rem;
+      font-size: 1.7rem;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease;
+      z-index: 999;
+    }
+    .toggle-btn:hover {
+      transform: rotate(15deg) scale(1.1);
+    }
+    .about-section {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      text-align: center;
+      animation: fadeInUp 1.2s ease;
+    }
+    .about-section h2 {
+      color: var(--accent-color);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .about-section p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    .mission-vision {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .mission-vision div {
+      flex: 1;
+      min-width: 250px;
+      padding: 1rem;
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      text-align: left;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transform: translateY(30px);
+      animation: cardPop 0.6s ease forwards;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .mission-vision div:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+    .mission-vision div:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    @media (hover: none) {
+      .mission-vision div:active {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+    }
+    .mission-vision h3 {
+      color: var(--accent-color);
+      font-size: 1.5rem;
+    }
+    .mission-vision i {
+      font-size: 1.8rem;
+      margin-right: 0.5rem;
+      color: var(--accent-color);
+    }
+    footer {
+      background-color: var(--accent-color);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      animation: fadeInUp 1s ease;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes cardPop {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 600px) {
+      .about-section h2 {
+        font-size: 1.5rem;
+      }
+      .mission-vision {
+        flex-direction: column;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      header nav a {
+        margin: 0.5rem 0 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-btn" id="modeToggle" onclick="toggleMode()" aria-label="Toggle theme">🌙</button>
+  <header>
+    <div><strong>byteBANK</strong></div>
+  </header>
+  <section class="about-section">
+    <h2>About byteBANK</h2>
+    <p>
+      Welcome to byteBANK, where every bit counts. Founded in 2025, ByteBank is a modern online banking platform designed to empower individuals and businesses with secure, seamless, and cutting-edge financial solutions.
+    </p>
+    <p>
+      At byteBANK, we believe in simplifying banking while prioritizing your security and convenience. Our state-of-the-art technology ensures that your financial needs are met with efficiency and transparency.
+    </p>
+    <div class="mission-vision">
+      <div class="mission">
+        <h3><i class="fas fa-bullseye"></i>Our Mission</h3>
+        <p>
+          To provide innovative, accessible, and secure banking solutions that empower our customers to achieve their financial goals with confidence.
+        </p>
+      </div>
+      <div class="vision">
+        <h3><i class="fas fa-eye"></i>Our Vision</h3>
+        <p>
+          To redefine digital banking by creating a future where financial services are intuitive, inclusive, and built on trust.
+        </p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    &copy; 2025 byteBANK. All rights reserved.
+  </footer>
+  <script>
+    function toggleMode() {
+      const body = document.body;
+      const btn = document.getElementById("modeToggle");
+      body.classList.toggle("dark-mode");
+      if (body.classList.contains("dark-mode")) {
+        btn.textContent = "🌞";
+        btn.setAttribute("aria-label", "Switch to light mode");
+      } else {
+        btn.textContent = "🌙";
+        btn.setAttribute("aria-label", "Switch to dark mode");
+      }
+      btn.style.transform = "rotate(360deg)";
+      setTimeout(() => {
+        btn.style.transform = "rotate(0deg)";
+      }, 300);
+    }
+    window.onload = () => {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.body.classList.add("dark-mode");
+        document.getElementById("modeToggle").textContent = "🌞";
+      }
+    };
+  </script>
+</body>
+</html>

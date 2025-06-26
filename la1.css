@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(270deg, #0b15d0, #000000, #4b0625);
+  background-size: 600% 600%;
+  animation: waveBG 15s ease infinite;
+  z-index: -1;
+}
+
+@keyframes waveBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+nav ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #1c14ff;
+  transform: translateY(5px);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  top: 30%;
+}
+
+.content h1 {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.content{
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideFadeIn 1s ease-out forwards;
+}
+
+@keyframes slideFadeIn {
+to {
+  opacity: 1;
+  transform: translateY(0);
+}
+}
+.content p {
+  font-size: 18px;
+  margin-bottom: 40px;
+  text-decoration: none;
+}
+
+.btn {
+  padding: 15px 30px;
+  background: #2714ff;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #ffffff;
+  margin: 2px;
+  transform: translateY(-5px);
+  transition: translateY 0.3s ease-in-out;
+  color:black;
+  transition: all 0.2s ease-in-out;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.logo {
+  max-width: 120px;
+  height: auto;
+  margin-bottom: 20px;
+  animation: fadeSlideDown 1s ease forwards;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+@keyframes fadeSlideDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
