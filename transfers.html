@@ -128,8 +128,8 @@
       <label for="from">From Account</label>
       <select id="from" required>
         <option value="">-- Select --</option>
-        <option value="">Savings</option>
-        <option value="">Current</option>
+        <option value="savings">Savings</option>
+        <option value="current">Current</option>
       </select>
 
       <label for="to">To Account (Receiver)</label>
@@ -184,7 +184,7 @@
       const note = document.getElementById('note').value.trim();
       const date = new Date().toISOString().split('T')[0];
 
-      if (!from || !to || !amount) {
+      if ( to || !amount) {
         alert('Please fill in all required fields.');
         return;
       }
