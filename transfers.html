@@ -1,210 +1,291 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Transfers | byteBANK</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --primary: #007bff;
+      --primary: #0066ff;
       --bg: #f5f7fa;
       --text: #333;
       --card-bg: #fff;
-      --border: #ccc;
+      --border: #ddd;
     }
-
     [data-theme="dark"] {
       --bg: #121212;
-      --text: #f5f5f5;
+      --text: #f0f0f0;
       --card-bg: #1e1e1e;
-      --border: #444;
+      --border: #333;
     }
 
     body {
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
       background: var(--bg);
       color: var(--text);
-      transition: background 0.3s, color 0.3s;
     }
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.2rem;
+      padding: 1rem 2rem;
       background: var(--card-bg);
       border-bottom: 1px solid var(--border);
     }
 
     .logo {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: bold;
       color: var(--primary);
     }
 
     .theme-toggle {
-  background: transparent;
-  color: var(--text);
-  font-size: 1rem;
-  padding: 0.2rem 0.3rem;
-  border: none;
-  width: 30%;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: background 0.3s;
-}
-
-    .theme-toggle:hover {
-      background: var(--border);
+      font-size: 1.2rem;
+      padding: 0.3rem 0.5rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
     .container {
-      max-width: 500px;
-      margin: 2rem auto;
-      background: var(--card-bg);
+      max-width: 800px;
+      margin: auto;
       padding: 2rem;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
 
     h2 {
-      text-align: center;
       color: var(--primary);
-      margin-bottom: 1.5rem;
+      margin-top: 0;
+    }
+
+    form {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
     }
 
     label {
       display: block;
       margin-bottom: 0.4rem;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     input, select {
       width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border-radius: 8px;
+      padding: 0.8rem;
+      border-radius: 6px;
       border: 1px solid var(--border);
       background: var(--bg);
       color: var(--text);
     }
 
     button {
-      width: 100%;
-      padding: 0.9rem;
       background: var(--primary);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
+      color: white;
+      padding: 0.9rem 1.5rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s;
+      font-weight: bold;
     }
 
-    button:hover {
-      background: #0062cc;
+    .receipt {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      animation: slideIn 0.4s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .modal-buttons button {
+      flex: 1;
     }
 
     @media (max-width: 600px) {
-      .container {
-        margin: 1rem;
-        padding: 1.5rem;
-      }
+      .container { padding: 1rem; }
+      .modal-content { padding: 1.2rem; }
     }
   </style>
 </head>
 <body>
+
   <header>
     <div class="logo">byteBANK</div>
-    <button class="theme-toggle" id="themeToggle">🌙</button>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
   </header>
 
   <div class="container">
     <h2>Make a Transfer</h2>
     <form id="transfer-form">
-      <label for="from">From Account</label>
-      <select id="from" required>
-        <option value="">-- Select --</option>
-        <option value="savings">Savings</option>
-        <option value="current">Current</option>
-      </select>
+      <div class="form-group">
+        <label for="sender">Sender Account</label>
+        <input type="text" id="sender" readonly />
+      </div>
 
-      <label for="to">To Account (Receiver)</label>
-      <input type="text" id="to" placeholder="Enter account number" required>
+      <div class="form-group">
+        <label for="recipient">Recipient Name</label>
+        <input type="text" id="recipient" required />
+      </div>
 
-      <label for="amount">Amount (₦)</label>
-      <input type="number" id="amount" placeholder="Enter amount" required>
+      <div class="form-group">
+        <label for="recipientAcc">Recipient Account No.</label>
+        <input type="text" id="recipientAcc" required maxlength="10" />
+      </div>
 
-      <label for="note">Note (optional)</label>
-      <input type="text" id="note" placeholder="e.g. Rent, Payment">
+      <div class="form-group">
+        <label for="amount">Amount (₦)</label>
+        <input type="number" id="amount" required min="1" />
+      </div>
 
       <button type="submit">Send</button>
     </form>
+
+    <div id="receipt" class="receipt" style="display: none;"></div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="confirmation-modal">
+    <div class="modal-content">
+      <h3>Confirm Transfer</h3>
+      <p id="confirm-details"></p>
+      <div class="modal-buttons">
+        <button id="confirm-btn">Confirm</button>
+        <button onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Theme logic
-    const toggleBtn = document.getElementById('themeToggle');
-    toggleBtn.addEventListener('click', () => {
+    const senderInput = document.getElementById('sender');
+    const form = document.getElementById('transfer-form');
+    const receiptBox = document.getElementById('receipt');
+    const modal = document.getElementById('confirmation-modal');
+    const confirmDetails = document.getElementById('confirm-details');
+    const confirmBtn = document.getElementById('confirm-btn');
+
+    const accountTypes = ["Savings", "Current", "Joint", "Business"];
+    const randomType = accountTypes[Math.floor(Math.random() * accountTypes.length)];
+    const generatedAccount = `${randomType} - ${Math.floor(Math.random() * 9000000000 + 1000000000)}`;
+    senderInput.value = generatedAccount;
+
+    function toggleTheme() {
       const root = document.documentElement;
-      const dark = root.getAttribute('data-theme') === 'dark';
-      root.setAttribute('data-theme', dark ? 'light' : 'dark');
-      toggleBtn.textContent = dark ? '🌙' : '☀️';
-      localStorage.setItem('theme', dark ? 'light' : 'dark');
-    });
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? '' : 'dark');
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      document.querySelector('.theme-toggle').textContent = isDark ? '🌙' : '☀️';
+    }
 
     window.addEventListener('DOMContentLoaded', () => {
-      if (localStorage.getItem('theme') === 'dark') {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
-        document.getElementById('themeToggle').textContent = '☀️';
+        document.querySelector('.theme-toggle').textContent = '☀️';
       }
-
-      const accountSelect = document.getElementById('from');
-      const user = JSON.parse(localStorage.getItem('currentUser'));
-      const allAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
-
-      const userAccounts = allAccounts.filter(acc => acc.user === user?.email);
-      userAccounts.forEach(acc => {
-        const option = document.createElement('option');
-        option.value = acc.accountNumber;
-        option.textContent = `${acc.accountType.toUpperCase()} - ${acc.accountNumber}`;
-        accountSelect.appendChild(option);
-      });
     });
 
-    // Handle form submission
-    document.getElementById('transfer-form').addEventListener('submit', function(e) {
+    let transactionData = null;
+
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const from = document.getElementById('from').value;
-      const to = document.getElementById('to').value.trim();
-      const amount = document.getElementById('amount').value;
-      const note = document.getElementById('note').value.trim();
-      const date = new Date().toISOString().split('T')[0];
 
-      if ( to || !amount) {
-        alert('Please fill in all required fields.');
-        return;
-      }
+      const sender = senderInput.value;
+      const recipient = document.getElementById('recipient').value.trim();
+      const recipientAcc = document.getElementById('recipientAcc').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value);
 
-      const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-      transactions.push({
-        type: 'Transfer',
-        from,
-        to,
-        amount: `₦${parseFloat(amount).toLocaleString()}`,
-        note,
-        date,
-        status: 'Completed'
-      });
+      if (!recipient || !recipientAcc || !amount || isNaN(amount)) return;
 
-      localStorage.setItem('transactions', JSON.stringify(transactions));
-      alert('Transfer successful!');
+      transactionData = {
+        date: new Date().toLocaleString(),
+        sender,
+        recipient,
+        accountNo: recipientAcc,
+        amount: amount.toLocaleString('en-NG', { style: 'currency', currency: 'NGN' }),
+        status: 'Completed',
+        type: 'Transfer'
+      };
 
-      this.reset();
+      confirmDetails.innerHTML = `
+        <p>Transfer <strong>${transactionData.amount}</strong></p>
+        <p>To <strong>${transactionData.recipient}</strong> (${transactionData.accountNo})</p>
+        <p>From <strong>${transactionData.sender}</strong></p>
+      `;
+
+      modal.style.display = 'flex';
     });
+
+    confirmBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+
+      const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+      transactions.unshift(transactionData);
+      localStorage.setItem('transactions', JSON.stringify(transactions));
+
+      receiptBox.innerHTML = `
+        <h3>Transaction Receipt</h3>
+        <p><strong>Date:</strong> ${transactionData.date}</p>
+        <p><strong>From:</strong> ${transactionData.sender}</p>
+        <p><strong>To:</strong> ${transactionData.recipient} (${transactionData.accountNo})</p>
+        <p><strong>Amount:</strong> ${transactionData.amount}</p>
+        <p><strong>Status:</strong> ${transactionData.status}</p>
+        <button onclick="window.print()">🖨️ Print Receipt</button>
+      `;
+      receiptBox.style.display = 'block';
+      form.reset();
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
   </script>
+
 </body>
-</html>
+  </html>
