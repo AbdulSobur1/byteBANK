@@ -1,186 +1,288 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Transactions | byteBANK</title>
   <style>
     :root {
-      --primary: #0066ff;
-      --bg: #f5f7fa;
-      --text: #333;
-      --card-bg: #fff;
-      --border: #ddd;
+      --primary: #0ea5e9;
+      --accent: #38bdf8;
+      --bg: #f9fafb;
+      --text: #1f2937;
+      --card: #ffffff;
+      --border: #d1d5db;
     }
+
     [data-theme="dark"] {
-      --bg: #121212;
-      --text: #e0e0e0;
-      --card-bg: #1e1e1e;
-      --border: #333;
+      --bg: #111827;
+      --text: #f3f4f6;
+      --card: #1f2937;
+      --border: #374151;
     }
+
+    * { box-sizing: border-box; }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
+      font-family: 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 5rem;
     }
+
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: var(--card);
       padding: 1rem 2rem;
-      background: var(--card-bg);
       border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
+
     .logo {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: var(--primary);
     }
+
     .theme-toggle {
       background: var(--primary);
-      color: white;
+      color: #fff;
       border: none;
-      border-radius: 5px;
-      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
       cursor: pointer;
     }
-    .container {
+
+    h2 {
+      margin: 1rem 2rem;
+      font-size: 1.8rem;
+    }
+
+    .transactions {
       max-width: 900px;
       margin: auto;
-      padding: 2rem;
+      padding: 1rem;
     }
-    .card {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 10px;
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
       border: 1px solid var(--border);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-      margin-bottom: 2rem;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-    th, td {
-      text-align: left;
-      padding: 0.75rem;
-      border-bottom: 1px solid var(--border);
-    }
-    th {
-      background: var(--card-bg);
+      border-radius: 8px;
+      background: var(--card);
       color: var(--text);
     }
-    button {
-      padding: 0.4rem 0.8rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #888;
-      margin-top: 2rem;
-    }
-    .receipt {
-      display: none;
-      background: white;
-      color: black;
-      padding: 2rem;
-      position: fixed;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 1px solid #ccc;
-      width: 90%;
-      max-width: 400px;
-      z-index: 1000;
-      box-shadow: 0 0 12px rgba(0,0,0,0.2);
-    }
-    .receipt h3 {
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
       margin-bottom: 1rem;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .card h4 { margin: 0 0 .5rem; }
+    .card small { opacity: 0.6; }
+
+    .amount {
+      font-weight: bold;
+      font-size: 1.1rem;
       color: var(--primary);
     }
-    .receipt p {
-      margin: 0.5rem 0;
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      border-radius: 6px;
+      background: var(--primary);
+      color: white;
+      text-transform: uppercase;
+      margin-right: 0.5rem;
     }
-    .receipt button {
-      margin-top: 1rem;
-      background: #444;
+
+    .actions {
+      margin-top: 0.6rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-print { background: var(--accent); color: white; }
+    .btn-delete { background: crimson; color: white; }
+
+    .no-txns {
+      text-align: center;
+      color: gray;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
     }
   </style>
 </head>
 <body>
+
   <header>
     <div class="logo">byteBANK</div>
     <button class="theme-toggle">🌙</button>
   </header>
 
-  <div class="container">
-    <h2>Transaction History</h2>
-    <div class="card">
-      <table>
-        <thead>
-          <tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th>Receipt</th></tr>
-        </thead>
-        <tbody id="transactions-body"></tbody>
-      </table>
+  <h2>Your Transactions</h2>
+
+  <div class="transactions">
+    <div class="filter-bar">
+      <input type="text" id="search" placeholder="Search transactions..." />
+      <select id="filterType">
+        <option value="">All Types</option>
+        <option value="deposit">Deposit</option>
+        <option value="withdrawal">Withdrawal</option>
+        <option value="loan">Loan</option>
+        <option value="transfer">Transfer</option>
+        <option value="purchase">Purchase</option>
+      </select>
+    </div>
+
+    <div id="txn-container">
+      <p class="no-txns">Loading transactions...</p>
     </div>
   </div>
 
-  <div class="receipt" id="receipt"></div>
-
-  <footer>&copy; 2025 byteBANK. All rights reserved.</footer>
-
   <script>
-    const themeToggle = document.querySelector('.theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      const root = document.documentElement;
+    const toggleBtn = document.querySelector('.theme-toggle');
+    const root = document.documentElement;
+    const container = document.getElementById('txn-container');
+    const searchInput = document.getElementById('search');
+    const filterSelect = document.getElementById('filterType');
+
+    toggleBtn.addEventListener('click', () => {
       const isDark = root.getAttribute('data-theme') === 'dark';
       root.setAttribute('data-theme', isDark ? '' : 'dark');
-      themeToggle.textContent = isDark ? '🌙' : '☀️';
+      toggleBtn.textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
     });
 
-    const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-    const tbody = document.getElementById('transactions-body');
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('theme') === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        toggleBtn.textContent = '☀️';
+      }
+      loadTransactions();
+    });
 
-    function renderTransactions() {
-      tbody.innerHTML = '';
-      transactions.forEach((tx, i) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${tx.date}</td>
-          <td>${tx.description}</td>
-          <td>${tx.amount}</td>
-          <td>${tx.status}</td>
-          <td><button onclick="showReceipt(${i})">🧾</button></td>
+    searchInput.addEventListener('input', loadTransactions);
+    filterSelect.addEventListener('change', loadTransactions);
+
+    function loadTransactions() {
+      const txns = JSON.parse(localStorage.getItem('transactions')) || [];
+      const search = searchInput.value.toLowerCase();
+      const filter = filterSelect.value;
+
+      const filtered = txns.filter(txn => {
+        const matchText = `${txn.type} ${txn.title} ${txn.amount} ${txn.date}`.toLowerCase();
+        const matchSearch = matchText.includes(search);
+        const matchType = filter ? txn.type === filter : true;
+        return matchSearch && matchType;
+      });
+
+      container.innerHTML = '';
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p class="no-txns">No matching transactions found.</p>`;
+        return;
+      }
+
+      filtered.forEach((txn, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h4>${txn.title || 'Transaction'}</h4>
+          <p><span class="badge">${txn.type || 'unknown'}</span> 
+            <span class="amount">${txn.amount}</span></p>
+          <small>${txn.date || 'Unknown date'}</small>
+
+          <div class="actions">
+            <button class="btn btn-print" onclick="printReceipt(${index})">🧾 Print</button>
+            <button class="btn btn-delete" onclick="deleteTransaction(${index})">🗑️ Delete</button>
+          </div>
         `;
-        tbody.appendChild(row);
+        container.appendChild(card);
       });
     }
 
-    function showReceipt(index) {
-      const tx = transactions[index];
-      const receipt = document.getElementById('receipt');
-      receipt.innerHTML = `
-        <h3>Transaction Receipt</h3>
-        <p><strong>Date:</strong> ${tx.date}</p>
-        <p><strong>Description:</strong> ${tx.description}</p>
-        <p><strong>Amount:</strong> ${tx.amount}</p>
-        <p><strong>Status:</strong> ${tx.status}</p>
-        <button onclick="window.print()">Print</button>
-        <button onclick="document.getElementById('receipt').style.display='none'">Close</button>
-      `;
-      receipt.style.display = 'block';
+    function deleteTransaction(index) {
+      const txns = JSON.parse(localStorage.getItem('transactions')) || [];
+      txns.splice(index, 1);
+      localStorage.setItem('transactions', JSON.stringify(txns));
+      loadTransactions();
     }
 
-    window.addEventListener('DOMContentLoaded', renderTransactions);
+    function printReceipt(index) {
+      const txns = JSON.parse(localStorage.getItem('transactions')) || [];
+      const txn = txns[index];
+      const win = window.open('', '', 'width=600,height=600');
+      win.document.write(`
+        <html>
+        <head><title>Transaction Receipt</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 2rem; background: #f9f9f9; color: #333; }
+          .receipt {
+            border: 2px dashed #38bdf8;
+            padding: 1.5rem;
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+          }
+          h2 { color: #0ea5e9; text-align: center; margin-bottom: 1.5rem; }
+          p { font-size: 1rem; margin: 0.4rem 0; }
+          .footer { text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #777; }
+        </style>
+        </head>
+        <body>
+          <div class="receipt">
+            <h2>byteBANK Receipt</h2>
+            <p><strong>Type:</strong> ${txn.type}</p>
+            <p><strong>Title:</strong> ${txn.title}</p>
+            <p><strong>Amount:</strong> ${txn.amount}</p>
+            <p><strong>Date:</strong> ${txn.date}</p>
+            <div class="footer">Thank you for banking with us.</div>
+          </div>
+          <script>window.onload = () => window.print();</script>
+        </body>
+        </html>
+      `);
+      win.document.close();
+    }
   </script>
 </body>
-</html>
+  </html>
