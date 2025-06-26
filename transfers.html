@@ -1,119 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Transfers | byteBANK</title>
   <style>
     :root {
-      --primary: #0066ff;
-      --accent: #4ea8ff;
+      --primary: #007bff;
       --bg: #f5f7fa;
       --text: #333;
       --card-bg: #fff;
-      --border: #ddd;
+      --border: #ccc;
     }
+
     [data-theme="dark"] {
       --bg: #121212;
-      --text: #f1f1f1;
+      --text: #f5f5f5;
       --card-bg: #1e1e1e;
       --border: #444;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
       background: var(--bg);
       color: var(--text);
-      margin: 0;
-      padding: 0;
-      transition: background 0.3s ease;
+      transition: background 0.3s, color 0.3s;
     }
 
     header {
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1rem 1.2rem;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
     }
 
     .logo {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: var(--primary);
     }
 
     .theme-toggle {
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 0.4rem 0.8rem;
-      cursor: pointer;
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  padding: 0.2rem 0.3rem;
+  border: none;
+  width: 30%;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+    .theme-toggle:hover {
+      background: var(--border);
     }
 
     .container {
-      max-width: 700px;
+      max-width: 500px;
       margin: 2rem auto;
       background: var(--card-bg);
       padding: 2rem;
       border-radius: 10px;
       border: 1px solid var(--border);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
 
     h2 {
-      color: var(--primary);
-      margin-bottom: 1rem;
       text-align: center;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
     }
 
     label {
       display: block;
-      margin-bottom: 0.3rem;
-      font-weight: 600;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
     }
 
     input, select {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.75rem;
       margin-bottom: 1rem;
-      border-radius: 6px;
+      border-radius: 8px;
       border: 1px solid var(--border);
       background: var(--bg);
       color: var(--text);
-      font-size: 1rem;
     }
 
     button {
+      width: 100%;
+      padding: 0.9rem;
       background: var(--primary);
-      color: white;
-      padding: 0.9rem 1.5rem;
-      border: none;
-      border-radius: 8px;
+      color: #fff;
       font-size: 1rem;
       font-weight: bold;
-      width: 100%;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 1rem;
+      transition: background 0.3s;
     }
 
     button:hover {
-      background: #0056d2;
-    }
-
-    .msg {
-      text-align: center;
-      margin-top: 1rem;
-      font-weight: 500;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #888;
-      padding: 1.2rem 0;
+      background: #0062cc;
     }
 
     @media (max-width: 600px) {
@@ -125,116 +117,92 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo">byteBANK</div>
-    <button class="theme-toggle">🌙</button>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
   </header>
 
   <div class="container">
     <h2>Make a Transfer</h2>
     <form id="transfer-form">
       <label for="from">From Account</label>
-      <select id="from" required></select>
+      <select id="from" required>
+        <option value="">-- Select --</option>
+      </select>
 
-      <label for="to">To Account Number</label>
-      <input type="text" id="to" placeholder="Enter account number" required />
+      <label for="to">To Account (Receiver)</label>
+      <input type="text" id="to" placeholder="Enter account number" required>
 
       <label for="amount">Amount (₦)</label>
-      <input type="number" id="amount" placeholder="e.g. 10000" required min="1"/>
+      <input type="number" id="amount" placeholder="Enter amount" required>
 
-      <label for="note">Note (Optional)</label>
-      <input type="text" id="note" placeholder="e.g. Transfer to UBA"/>
+      <label for="note">Note (optional)</label>
+      <input type="text" id="note" placeholder="e.g. Rent, Payment">
 
-      <button type="submit">Send Money</button>
-      <p class="msg" id="msg"></p>
+      <button type="submit">Send</button>
     </form>
   </div>
 
-  <footer>&copy; 2025 byteBANK. All rights reserved.</footer>
-
   <script>
-    const themeBtn = document.querySelector('.theme-toggle');
-    const root = document.documentElement;
-
-    themeBtn.addEventListener('click', () => {
+    // Theme logic
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      const root = document.documentElement;
       const dark = root.getAttribute('data-theme') === 'dark';
-      root.setAttribute('data-theme', dark ? '' : 'dark');
-      themeBtn.textContent = dark ? '🌙' : '☀️';
+      root.setAttribute('data-theme', dark ? 'light' : 'dark');
+      toggleBtn.textContent = dark ? '🌙' : '☀️';
       localStorage.setItem('theme', dark ? 'light' : 'dark');
     });
 
-    window.addEventListener("DOMContentLoaded", () => {
-      if (localStorage.getItem("theme") === "dark") {
-        root.setAttribute("data-theme", "dark");
-        document.querySelector(".theme-toggle").textContent = "☀️";
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeToggle').textContent = '☀️';
       }
 
-      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-      const users = JSON.parse(localStorage.getItem("users")) || [];
-      const fromSelect = document.getElementById("from");
+      const accountSelect = document.getElementById('from');
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      const allAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
 
-      if (!currentUser) return;
-
-      const user = users.find(u => u.email === currentUser.email);
-      if (user?.accounts?.length) {
-        user.accounts.forEach(acc => {
-          const opt = document.createElement("option");
-          opt.value = acc.number;
-          opt.textContent = `${acc.number} (${acc.type}) - ₦${acc.balance}`;
-          fromSelect.appendChild(opt);
-        });
-      }
+      const userAccounts = allAccounts.filter(acc => acc.user === user?.email);
+      userAccounts.forEach(acc => {
+        const option = document.createElement('option');
+        option.value = acc.accountNumber;
+        option.textContent = `${acc.accountType.toUpperCase()} - ${acc.accountNumber}`;
+        accountSelect.appendChild(option);
+      });
     });
 
-    document.getElementById("transfer-form").addEventListener("submit", (e) => {
+    // Handle form submission
+    document.getElementById('transfer-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      const from = document.getElementById("from").value;
-      const to = document.getElementById("to").value.trim();
-      const amount = parseFloat(document.getElementById("amount").value);
-      const note = document.getElementById("note").value || "Fund Transfer";
-      const msg = document.getElementById("msg");
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value.trim();
+      const amount = document.getElementById('amount').value;
+      const note = document.getElementById('note').value.trim();
+      const date = new Date().toISOString().split('T')[0];
 
-      const users = JSON.parse(localStorage.getItem("users")) || [];
-      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-      if (!currentUser) return msg.textContent = "Please log in first.";
-
-      const userIndex = users.findIndex(u => u.email === currentUser.email);
-      if (userIndex === -1) return msg.textContent = "User not found.";
-
-      const fromAccount = users[userIndex].accounts.find(a => a.number === from);
-      if (!fromAccount || fromAccount.balance < amount) {
-        msg.style.color = "salmon";
-        return msg.textContent = "Insufficient balance or invalid account.";
+      if (!from || !to || !amount) {
+        alert('Please fill in all required fields.');
+        return;
       }
 
-      fromAccount.balance -= amount;
-
-      const transaction = {
-        type: "transfer",
+      const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+      transactions.push({
+        type: 'Transfer',
         from,
         to,
+        amount: `₦${parseFloat(amount).toLocaleString()}`,
         note,
-        amount,
-        date: new Date().toISOString(),
-        status: "Completed"
-      };
+        date,
+        status: 'Completed'
+      });
 
-      users[userIndex].transactions = users[userIndex].transactions || [];
-      users[userIndex].transactions.push(transaction);
+      localStorage.setItem('transactions', JSON.stringify(transactions));
+      alert('Transfer successful!');
 
-      localStorage.setItem("users", JSON.stringify(users));
-      localStorage.setItem("currentUser", JSON.stringify(users[userIndex]));
-
-      msg.style.color = "green";
-      msg.textContent = "Transfer successful!";
-      e.target.reset();
-
-      setTimeout(() => {
-        window.location.href = "transactions.html";
-      }, 1500);
+      this.reset();
     });
   </script>
 </body>
-  </html>
+</html>
