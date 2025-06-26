@@ -6,121 +6,138 @@
   <title>Dashboard | byteBANK</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-:root {
-  --primary: #0066ff;
-  --bg: #f5f7fa;
-  --text: #333;
-  --card-bg: #fff;
-  --border: #ddd;
-}
-[data-theme="dark"] {
-  --bg: #121212;
-  --text: #ffffff;
-  --card-bg: #1e1e1e;
-  --border: #333;
-}
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: var(--card-bg);
-  border-bottom: 1px solid var(--border);
-}
-.logo {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: var(--primary);
-}
-.theme-toggle, .logout-btn {
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 0.4rem 0.8rem;
-  cursor: pointer;
-  margin-left: 10px;
-}
-nav {
-  display: flex;
-  gap: 1.2rem;
-  padding: 1rem 2rem;
-  background: var(--card-bg);
-  flex-wrap: wrap;
-}
-nav a {
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-nav a i {
-  color: var(--primary);
-}
-.container {
-  max-width: 960px;
-  margin: auto;
-  padding: 2rem;
-}
-.card {
-  background: var(--card-bg);
-  padding: 1.5rem;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-  margin-bottom: 2rem;
-}
-h2 {
-  color: var(--primary);
-}
-.responsive-table {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 500px;
-}
-th, td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-}
-footer {
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: #888;
-  margin-top: 2rem;
-}
-.mobile-toggle {
-  display: none;
-}
-@media (max-width: 768px) {
-  nav {
-    display: none;
-    flex-direction: column;
-  }
-  .mobile-toggle {
-    display: block;
-    font-size: 1.5rem;
-    margin-right: 1rem;
-    cursor: pointer;
-  }
-  .nav-open nav {
-    display: flex;
-  }
-}
+    :root {
+      --primary: #0066ff;
+      --bg: #f5f7fa;
+      --text: #333;
+      --card-bg: #fff;
+      --border: #ddd;
+    }
+
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #ffffff;
+      --card-bg: #1e1e1e;
+      --border: #333;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .theme-toggle, .logout-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.2rem;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    nav a i {
+      color: var(--primary);
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      color: var(--primary);
+    }
+
+    .responsive-table {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 2rem;
+    }
+
+    .mobile-toggle {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+      }
+      .mobile-toggle {
+        display: block;
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        cursor: pointer;
+      }
+      .nav-open nav {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
@@ -189,32 +206,24 @@ footer {
         document.querySelector(".theme-toggle").textContent = "☀️";
       }
 
-      // Auth check
       const user = JSON.parse(localStorage.getItem('user'));
-      const fullUser = JSON.parse(localStorage.getItem('registeredUser'));
+      const fullUser = JSON.parse(localStorage.getItem('registeredUser')) || {};
 
-      if (!user) {
-        alert("Please log in first.");
-        window.location.href = "newlogin.html";
-        return;
+      if (user) {
+        document.getElementById("welcome-msg").textContent = `Welcome back, ${user.firstname || 'User'}!`;
+        const balance = fullUser?.balance || 1250500;
+        document.getElementById("account-balance").textContent = parseFloat(balance).toLocaleString("en-NG", {
+          minimumFractionDigits: 2
+        });
       }
 
-      document.getElementById("welcome-msg").textContent = `Welcome back, ${user.firstname || 'User'}!`;
       document.getElementById("last-login").textContent = new Date().toDateString();
-
-      // Show balance if available
-      const balance = fullUser?.balance || 1250500.00; // fallback balance
-      document.getElementById("account-balance").textContent = parseFloat(balance).toLocaleString("en-NG", {
-        minimumFractionDigits: 2
-      });
     });
 
-    // Mobile toggle
     function toggleNav() {
       document.body.classList.toggle('nav-open');
     }
 
-    // Logout
     function logout() {
       localStorage.removeItem('user');
       alert("You have been logged out.");
